@@ -1,0 +1,52 @@
+/*******************************************************************************/
+/* Global */
+/*******************************************************************************/
+body{
+	background-image: url('../imgs/escheresque.png');
+}
+#mainWrapper{
+	background-color:#fff !important;
+	height:800px;
+}
+input{
+	width:100%;
+}
+/*******************************************************************************/
+/* Header */
+/*******************************************************************************/
+.banner{
+	background-color:#652d90;
+	width:100%;
+	min-width: 100%;
+}
+#bannerImg{
+	width:780px;
+	margin:0 auto;
+	display: block;
+}
+
+/*******************************************************************************/
+/* Navigation */
+/*******************************************************************************/
+.navigation{
+	border:solid 0px #652d90;
+	border-bottom-width:3px;
+	background-color: #fff;
+}
+.navigation nav ul{
+	list-style: none;
+	margin-top:18px;
+}
+.navigation nav ul li{
+	display: inline-block;
+	height:30px;
+	width:40px;
+	margin:0px 20px;
+	border-left:solid 1px #652d90;
+}
+.navigation nav ul li:nth-of-type(4){
+	border-right:solid 1px #652d90;
+}
+.navigation nav ul li a{
+	text-decoration: none;
+} 

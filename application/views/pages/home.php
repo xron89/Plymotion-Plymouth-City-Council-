@@ -1,3 +1,14 @@
+<?php if(isset($register)) { ?>
+<script>
+    $register = <?php echo $register ?>;
+    if ($register) {
+        registerPopup();
+    } else {
+        alert($register);
+    }
+</script>
+<?php } ?>
+
 <div id="content" class="container">
     <div class="row">
         <div class="col-md-8 col-sm-8 col-xs-12">
@@ -11,14 +22,14 @@
             </p>
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12">
-            <?php if (isset($login) && $login) { ?>
+            <?php if ($this->session->userdata('logged_in') === true) { ?>
                 Hello User
             <?php } else { ?>
                 <h2>Login</h2>
                 <div class="message">
                     <?php
-                    if (isset($register)) {
-                        echo $register;
+                    if (isset($login) && $login === true) {
+                        echo "Login details where incorrect please try again";
                     }
                     ?>
                 </div>
@@ -27,7 +38,7 @@
                 echo form_open('login', $attributes);
                 ?>
                 <div>
-                    <label id="refNumberLbl">Reference Number:</label>
+                    <label id="refNumberLbl">Reference Code:</label>
                     <input id="refNumber" type="text" placeholder="10082643484" name="ref">	
                 </div>
                 <div>
@@ -39,7 +50,7 @@
                 </div>
                 </form>
                 <div>
-                    <button id="register" class="defult-btn" name="register" data-toggle="modal" data-target="#myModal">Register</button>
+                    <button id="register" class="defult-btn" name="register" data-toggle="modal" data-target="#registerModal">Register</button>
                 </div>
             <?php } ?>
             <p>Resent activation email?</p>
@@ -67,7 +78,7 @@
 
 </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

@@ -47,4 +47,10 @@ function bikepass2(bike, startPos) {
     bike.animate({left: -450}, 8000, 'linear');
 }
 
+function registerPopup() {
+    alert("Thank you for registering.\n" +
+            "You will receive an email shortly to allow you to confirm your email.\n" +
+            "This email will also contain your reference code");
+}
+
 

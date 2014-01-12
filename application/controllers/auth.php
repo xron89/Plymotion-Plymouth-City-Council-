@@ -1,34 +1,1 @@
-<?php
-
-class Auth extends CI_Controller {
-
-    public function __construct() {
-        parent::__construct();
-        $this->load->model('users_model');
-    }
-
-    public function index() {
-        
-    }
-
-    public function login() {
-        $this->load->helper('form');
-        $users = $this->users_model->get_users();
-
-        $refNum = $this->input->post('ref');
-        $dob = $this->input->post('dob');
-        $data['title'] = ucfirst('Home'); // Capitalize the first letter
-
-        foreach ($users as $users_item) {
-            if ($users_item['ref'] === $refNum && $users_item['dateOfBirth'] === $dob) {
-                $data['login'] = true;
-                $this->load->view('templates/header', $data);
-                $this->load->view('pages/home', $data);
-                $this->load->view('templates/footer');
-                break;
-            }
-        }
-
-
-    }
-}
+<?phpclass Auth extends CI_Controller {    public function __construct() {        parent::__construct();        $this->load->model('clients_model');    }    public function index($page, $data) {        $this->load->view('templates/header', $data);        $this->load->view('pages/' + $page, $data);        $this->load->view('templates/footer');    }    //Function takes clients credentials and checkes them against the db,    //if successfully it passes the userID into a new session    public function clientLogin() {        $this->load->helper('form');        $this->load->library('encrypt');        $clients = $this->clients_model->get_clients();        $refNum = $this->input->post('ref');        $dob = $this->input->post('dob');        $data['title'] = ucfirst('home'); // Capitalize the first letter        foreach ($clients as $clients_item) {            $decodeRef = $this->encrypt->decode($clients_item['ref']);            if ($decodeRef === $refNum && $clients_item['dateOfBirth'] === $dob) {                $data['login'] = true;                $this->setClientSession($data['id']);                break;            } else {                $data['login'] = false;            }        }        $this->index('home', $data);    }    private function setClientSession($clientID) {        $newdata = array(            'clientID' => $clientID,            'logged_in' => TRUE        );        $this->session->set_userdata($newdata);    }}

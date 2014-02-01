@@ -1,11 +1,22 @@
 <?php if(isset($register)) { ?>
 <script>
-    $register = <?php echo $register ?>;
-    if ($register) {
+    $register = "<?php echo $register ?>";
+    $regError = "<?php if(isset($regError)){echo $regError;} ?>";
+    if ($register === 'true') {
         registerPopup();
     } else {
-        alert($register);
+        alert($regError);
     }
+</script>
+<?php } elseif (isset($activate)) { ?>
+<script>
+    $activated = "<?php echo $activate ?>";
+    $actMessage = "<?php echo $actMessage ?>";
+    if ($activated === 'true') {
+        activatePopup();
+    } else {
+        alert($actMessage);
+    }  
 </script>
 <?php } ?>
 
@@ -23,19 +34,23 @@
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12">
             <?php if ($this->session->userdata('logged_in') === true) { ?>
-                Hello User
+            Hello <?php echo $this->session->userdata('name'); ?> <br/>
+            <a href="clientLogout">Logout</a>
             <?php } else { ?>
                 <h2>Login</h2>
                 <div class="message">
                     <?php
-                    if (isset($login) && $login === true) {
-                        echo "Login details where incorrect please try again";
-                    }
-                    ?>
+                    if (isset($login) && $login === false) { 
+                        echo $loginMessage;
+                    } elseif (isset($login) && $login === true) { ?>
+                    <script>
+                        alert("<?php echo $loginMessage; ?>");
+                    </script>
+                    <?php } ?>
                 </div>
                 <?php
                 $attributes = array('id' => 'loginForm');
-                echo form_open('login', $attributes);
+                echo form_open('clientLogin', $attributes);
                 ?>
                 <div>
                     <label id="refNumberLbl">Reference Code:</label>
@@ -43,7 +58,7 @@
                 </div>
                 <div>
                     <label id="dobLbl">Date Of Birth:</label>
-                    <input id="dob" type="text" placeholder="220587" name="dob">
+                    <input id="dob" type="text" placeholder="dd-mm-yyyy" name="dob">
                 </div>
                 <div>
                     <input id="bookingCheck" type="submit" class="defult-btn" name="submit" value="Login">
@@ -52,8 +67,9 @@
                 <div>
                     <button id="register" class="defult-btn" name="register" data-toggle="modal" data-target="#registerModal">Register</button>
                 </div>
+                <p>Resent activation email?</p>
             <?php } ?>
-            <p>Resent activation email?</p>
+            
         </div>
     </div>
     <div id="splitter" class="row">
@@ -99,9 +115,11 @@
                     <label class="bookingFormLbl">Address:</label>
                     <input class="bookingForm" type="text" id="address" name="address" placeholder="22 Brambledown Road">
                     <label class="bookingFormLbl">Date Of Birth:</label>
-                    <input class="bookingForm" type="text" id="dateofbirth" name="dateofbirth" placeholder="220594">
-                    <label class="bookingFormLbl">Contact Number:</label>
+                    <input class="bookingForm" type="text" id="dateofbirth" name="dateofbirth" placeholder="dd-mm-yyyy">
+                    <label class="bookingFormLbl">Phone Number:</label>
                     <input class="bookingForm" type="text" id="phone" name="phone" placeholder="012345 67891">
+                    <label class="bookingFormLbl">Mobile Number:</label>
+                    <input class="bookingForm" type="text" id="mobile" name="mobile" placeholder="012345 67891">
                     <label class="bookingFormLbl">Email:</label>
                     <input class="bookingForm" type="text" id="email" name="email" placeholder="John.Doe@web.com">
                     </form>

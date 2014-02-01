@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'delta.srv2.com';
-$db['default']['username'] = 'xronnst1_teamven';
-$db['default']['password'] = 'pH)N(%pnOs_T';
-$db['default']['database'] = 'xronnst1_plymotion';
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '';
+$db['default']['database'] = 'plymotion';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

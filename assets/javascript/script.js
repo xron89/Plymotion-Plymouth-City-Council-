@@ -53,4 +53,9 @@ function registerPopup() {
             "This email will also contain your reference code");
 }
 
+function activatePopup() {
+    alert("Your account is now activated.\n" +
+            "Please login to continue.");
+}
+
 

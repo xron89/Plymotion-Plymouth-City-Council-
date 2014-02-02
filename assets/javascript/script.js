@@ -35,6 +35,14 @@ $(document).ready(function() {
     $('#registerSubmit').click(function() {
             $('#registerForm').submit();
     });
+    
+    $('#adminSubmit').click(function() {
+            $('#adminForm').submit();
+    });
+    
+    $('#newAdminSubmit').click(function() {
+            $('#adminRegForm').submit();
+    });
 });
 
 function bikepass(bike, startPos) {

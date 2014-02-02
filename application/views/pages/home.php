@@ -34,6 +34,7 @@
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12">
             <?php if ($this->session->userdata('logged_in') === true) { ?>
+            <h2>Your Control Panel</h2>
             Hello <?php echo $this->session->userdata('name'); ?> <br/>
             <a href="clientLogout">Logout</a>
             <?php } else { ?>
@@ -49,25 +50,30 @@
                     <?php } ?>
                 </div>
                 <?php
-                $attributes = array('id' => 'loginForm');
+                $attributes = array('id' => 'loginForm', 'class' => 'form-horizontal', 'role' => 'form');
                 echo form_open('clientLogin', $attributes);
                 ?>
-                <div>
-                    <label id="refNumberLbl">Reference Code:</label>
-                    <input id="refNumber" type="text" placeholder="10082643484" name="ref">	
+                <div class="form-group">
+                    <label for="ref" class="col-sm-6 control-label">Reference Code:</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" id="ref" type="text" placeholder="Bob12345" name="ref">
+                    </div>
                 </div>
-                <div>
-                    <label id="dobLbl">Date Of Birth:</label>
-                    <input id="dob" type="text" placeholder="dd-mm-yyyy" name="dob">
+                <div class="form-group">
+                    <label for="dob" class="col-sm-6 control-label">Date Of Birth:</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" id="dob" type="date" placeholder="dd-mm-yyyy" name="dob">
+                    </div>
                 </div>
-                <div>
-                    <input id="bookingCheck" type="submit" class="defult-btn" name="submit" value="Login">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button id="bookingCheck" type="submit" class="btn btn-default" name="submit">Login</button>
+                        <button id="register" class="btn btn-default" name="register" data-toggle="modal" data-target="#registerModal">Register</button>
+                    </div>
                 </div>
                 </form>
-                <div>
-                    <button id="register" class="defult-btn" name="register" data-toggle="modal" data-target="#registerModal">Register</button>
-                </div>
-                <p>Resent activation email?</p>
+                
+                <p>Resend activation email</p>
             <?php } ?>
             
         </div>
@@ -105,23 +111,51 @@
                 <div id="form">
                     <div class="message"></div>
                     <?php
-                    $attributes = array('id' => 'registerForm');
+                    $attributes = array('id' => 'registerForm', 'class' => 'form-horizontal', 'role' => 'form');
                     echo form_open('register', $attributes);
                     ?>
-                    <label class="bookingFormLbl">First name:</label>
-                    <input class="bookingForm" type="text" id="fname" name="fname" placeholder="John">
-                    <label class="bookingFormLbl">Last name:</label>
-                    <input class="bookingForm" type="text" id="lname" name="lname" placeholder="Doe">
-                    <label class="bookingFormLbl">Address:</label>
-                    <input class="bookingForm" type="text" id="address" name="address" placeholder="22 Brambledown Road">
-                    <label class="bookingFormLbl">Date Of Birth:</label>
-                    <input class="bookingForm" type="text" id="dateofbirth" name="dateofbirth" placeholder="dd-mm-yyyy">
-                    <label class="bookingFormLbl">Phone Number:</label>
-                    <input class="bookingForm" type="text" id="phone" name="phone" placeholder="012345 67891">
-                    <label class="bookingFormLbl">Mobile Number:</label>
-                    <input class="bookingForm" type="text" id="mobile" name="mobile" placeholder="012345 67891">
-                    <label class="bookingFormLbl">Email:</label>
-                    <input class="bookingForm" type="text" id="email" name="email" placeholder="John.Doe@web.com">
+                    <div class="form-group">
+                        <label for="fname" class="col-sm-4 control-label">First name:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="fname" name="fname" placeholder="John">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lname" class="col-sm-4 control-label">Last name:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="lname" name="lname" placeholder="Doe">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-sm-4 control-label">Address:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="address" name="address" placeholder="22 Brambledown Road">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateofbirth" class="col-sm-4 control-label">Date Of Birth:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="date" id="dateofbirth" name="dateofbirth" placeholder="dd-mm-yyyy">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-4 control-label">Phone Number:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="number" id="phone" name="phone" placeholder="012345 67891">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile" class="col-sm-4 control-label">Mobile Number:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="number" id="mobile" name="mobile" placeholder="012345 67891">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-4 control-label">Email:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="email" id="email" name="email" placeholder="John.Doe@web.com">
+                        </div>
+                    </div>
                     </form>
                 </div>
             </div>

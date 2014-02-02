@@ -59,42 +59,74 @@
         <body>
 
             <div id="banner">
-
-                <span id="bike"> </span>
-
-                <span id="bike2"> </span>
-
+                <image src="/plymotion/assets/img/banner.jpg">
             </div>
 
-                <div class="container">
+            <div class="container">
 
-                    <div id="navigation">
+                <div id="navigation">
 
-                        <div class="row">
+                    <div class="row">
 
-                                <nav>
+                        <nav>
 
-                                    <ul>
+                            <ul>
 
-                                        <li><a href="/plymotion/">Home</a> </li>
+                                <li><a href="/plymotion/">Home</a> </li>
 
-                                        <li>News</li>
+                                <li><a href="/plymotion/news">News</a></li>
 
-                                        <li>Courses</li>
+                                <li><a href="/plymotion/courses">Courses</a></li>
 
-                                        <li>Contact</li>
+                                <li><a id="adminLogin" href="#" data-toggle="modal" data-target="#adminModal">Admin</a></li>
 
-                                    </ul>
+                            </ul>
 
-                                </nav>
-
-                        </div>
+                        </nav>
 
                     </div>
 
                 </div>
 
-            
+            </div>
+
+
 
             <div class="container_content">
+                <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Admin Login</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="form">
+                                    <div class="message"></div>
+                                    <?php
+                                    $attributes = array('id' => 'adminForm', 'class' => 'form-horizontal', 'role' => 'form');
+                                    echo form_open('adminLogin', $attributes);
+                                    ?>
+                                    <div class="form-group">
+                                        <label for="username" class="col-sm-2 control-label">Username:</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" id="username" name="username" placeholder="jackWhite">
+                                        </div>
+                                        </div>
+                                    <div class="form-group">
+                                        <label for="password" class="col-sm-2 control-label">Password:</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="password" id="password" name="password" placeholder="Dog1">
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="adminSubmit">Submit</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
 

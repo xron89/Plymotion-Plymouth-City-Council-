@@ -28,9 +28,9 @@
 
             <!-- Stylesheets -->
 
-            <link rel="stylesheet" href="/plymotion/assets/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="<?php echo base_url('/assets/css/bootstrap.min.css') ?>" />
 
-            <link rel="stylesheet" href="/plymotion/assets/css/style.css" />
+            <link rel="stylesheet" href="<?php echo base_url('/assets/css/style.css') ?>" />
 
 
 
@@ -38,28 +38,22 @@
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-            <script src="/plymotion/assets/javascript/script.js"></script>
+            <script src="<?php echo base_url('/assets/javascript/script.js') ?>"></script>
 
-            <script src="/plymotion/assets/javascript/libaries/bootstrap.min.js"></script>
+            <script src="<?php echo base_url('/assets/javascript/libaries/bootstrap.min.js') ?>"></script>
 
 
 
             <!-- Favicon and Apple Icons -->
 
-            <link rel="shortcut icon" href="images/icons/favicon.ico">
-
-            <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
-
-            <link rel="apple-touch-icon" sizes="72x72" href="images/icons/apple-touch-icon-72x72.png">
-
-            <link rel="apple-touch-icon" sizes="114x114" href="images/icons/apple-touch-icon-114x114.png">
+            <link rel="shortcut icon" href="<?php echo base_url('/assets/img/favicon.ico') ?>">
 
         </head>
 
         <body>
 
             <div id="banner">
-                <image src="/plymotion/assets/img/banner.jpg">
+                <image src="<?php echo base_url('/assets/img/banner.jpg') ?>">
             </div>
 
             <div class="container">
@@ -72,11 +66,11 @@
 
                             <ul>
 
-                                <li><a href="/plymotion/">Home</a> </li>
+                                <li><a href="<?php echo base_url() ?>">Home</a> </li>
 
-                                <li><a href="/plymotion/news">News</a></li>
+                                <li><a href="<?php echo site_url('news') ?>">News</a></li>
 
-                                <li><a href="/plymotion/courses">Courses</a></li>
+                                <li><a href="<?php echo site_url('courses') ?>">Courses</a></li>
 
                                 <li><a id="adminLogin" href="#" data-toggle="modal" data-target="#adminModal">Admin</a></li>
 

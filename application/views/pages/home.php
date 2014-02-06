@@ -16,7 +16,7 @@
         activatePopup();
     } else {
         alert($actMessage);
-    }  
+    }
 </script>
 <?php } ?>
 
@@ -41,7 +41,7 @@
                 <h2>Login</h2>
                 <div class="message">
                     <?php
-                    if (isset($login) && $login === false) { 
+                    if (isset($login) && $login === false) {
                         echo $loginMessage;
                     } elseif (isset($login) && $login === true) { ?>
                     <script>
@@ -72,10 +72,10 @@
                     </div>
                 </div>
                 </form>
-                
+
                 <p>Resend activation email</p>
             <?php } ?>
-            
+
         </div>
     </div>
     <div id="splitter" class="row">
@@ -85,16 +85,16 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            <img src="/plymotion/assets/img/DFT.png">
+            <img src="<?php echo base_url('/assets/img/DFT.png') ?>">
         </div>
         <div class="col-md-3">
-            <img src="/plymotion/assets/img/FGW.png">
+            <img src="<?php echo base_url('/assets/img/FGW.png') ?>">
         </div>
         <div class="col-md-3">
-            <img src="/plymotion/assets/img/COP.png">
+            <img src="<?php echo base_url('/assets/img/COP.png') ?>">
         </div>
         <div class="col-md-3">
-            <img src="/plymotion/assets/img/NHS.png">
+            <img src="<?php echo base_url('/assets/img/NHS.png') ?>">
         </div>
     </div>
 

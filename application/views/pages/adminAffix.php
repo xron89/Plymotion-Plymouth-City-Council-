@@ -10,7 +10,7 @@
                         <a href="#">Clients</a>
                     </li>
                     <li>
-                        <a href="/plymotion/admin/adminManagment">Admin Managment</a>
+                        <a href="<?php echo site_url('admin/adminManagment') ?>">Admin Managment</a>
                     </li>
                     <li>
                         <a href="#">Trainers</a>

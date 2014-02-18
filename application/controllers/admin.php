@@ -12,8 +12,8 @@ class Admin extends CI_Controller {
     
     public function index($data, $page) {
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/adminAffix');
-        $this->load->view('pages/' . $page, $data);
+        $this->load->view('pages/modals/adminAffix');
+        $this->load->view('pages/admin/' . $page, $data);
         $this->load->view('templates/footer');
     }
     

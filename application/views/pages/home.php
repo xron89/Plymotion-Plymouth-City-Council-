@@ -1,11 +1,11 @@
 <?php if(isset($register)) { ?>
 <script>
     $register = "<?php echo $register ?>";
-    $regError = "<?php if(isset($regError)){echo $regError;} ?>";
+    $regError = "<?php if(isset($regError)){echo $regMessage;} ?>";
     if ($register === 'true') {
-        registerPopup();
+        alert($regMessage);
     } else {
-        alert($regError);
+        alert($regMessage);
     }
 </script>
 <?php } elseif (isset($activate)) { ?>
@@ -13,9 +13,29 @@
     $activated = "<?php echo $activate ?>";
     $actMessage = "<?php echo $actMessage ?>";
     if ($activated === 'true') {
-        activatePopup();
+        alert($actMessage);
     } else {
         alert($actMessage);
+    }
+</script>
+<?php } elseif (isset($retrieveDetails)) { ?>
+<script>
+    $retrieveDetails = "<?php echo $retrieveDetails ?>";
+    $retMessage = "<?php echo $retMessage ?>";
+    if ($retrieveDetails === 'true') {
+        alert($retMessage);
+    } else {
+        alert($retMessage);
+    }
+</script>
+<?php } elseif (isset($resendEmail)) { ?>
+<script>
+    $resendEmail = "<?php echo $resendEmail ?>";
+    $reMessage = "<?php echo $reMessage ?>";
+    if ($resendEmail === 'true') {
+        alert($reMessage);
+    } else {
+        alert($reMessage);
     }
 </script>
 <?php } ?>
@@ -73,7 +93,8 @@
                 </div>
                 </form>
 
-                <p>Resend activation email</p>
+                <p><a id="resendEmail" href="#" data-toggle="modal" data-target="#resendEmailModal">Resend activation email</a></p>
+                <p><a id="retrieveDetails" href="#" data-toggle="modal" data-target="#retrieveDetailsModal">Forgotten your details?</a></p>
             <?php } ?>
 
         </div>
@@ -162,6 +183,68 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="registerSubmit">Submit</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="retrieveDetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Retrieve Your Login Details.</h4>
+            </div>
+            <div class="modal-body">
+                <div id="form">
+                    <div class="message"></div>
+                    <?php
+                    $attributes = array('id' => 'retrieveDetailsForm', 'class' => 'form-horizontal', 'role' => 'form');
+                    echo form_open('retrieveDetails', $attributes);
+                    ?>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-4 control-label">Email:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="email" name="email" placeholder="Bob123">
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="retrieveDetailsSubmit">Submit</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="resendEmailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Resend Activation Email.</h4>
+            </div>
+            <div class="modal-body">
+                <div id="form">
+                    <div class="message"></div>
+                    <?php
+                    $attributes = array('id' => 'resendEmailForm', 'class' => 'form-horizontal', 'role' => 'form');
+                    echo form_open('resendEmail', $attributes);
+                    ?>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-4 control-label">Email:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="email" name="email" placeholder="Bob123">
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="resendEmailSubmit">Submit</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

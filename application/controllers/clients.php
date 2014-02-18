@@ -30,7 +30,7 @@ class Clients extends CI_Controller {
 
         if ($this->dupeCheck($this->input->post('email'))) {
             $data['register'] = 'false';
-            $data['regError'] = 'This email has already been used.\n '
+            $data['regMessage'] = 'This email has already been used.\n '
                     . 'Please try again with another email';
             $this->index($data);
         } else {
@@ -58,11 +58,14 @@ class Clients extends CI_Controller {
                 $this->clients_model->set_clients_login($loginData);
 
                 $data['register'] = 'true';
+                $data['regMessage'] = "Thank you for registering.\n"
+                        . "You will receive an email shortly to allow you to confirm your email.\n"
+                        . "This email will also contain your reference code";
                 $this->registerEmail($this->input->post('email'), $reference, $clientData->userID);
                 $this->index($data);
             } else {
                 $data['register'] = 'false';
-                $data['regError'] = "Unable to register you please try again.\n"
+                $data['regMessage'] = "Unable to register you please try again.\n"
                         . "If this problem continues please contact an administrator";
                 $this->index($data);
             }
@@ -75,10 +78,53 @@ class Clients extends CI_Controller {
         if ($clientData->verified === '0') {
             $this->clients_model->activate_client($userID);
             $data['activate'] = 'true';
+            $data['actMessage'] = "Your account is now activated.\n"
+                    . "Please login to continue.";
             $this->index($data);
         } else {
             $data['activate'] = 'false';
             $data['actMessage'] = 'Your account is already acctivate.';
+            $this->index($data);
+        }
+    }
+    
+    public function retrieveDetails() {
+        $email = $this->input->post('email');
+        
+        $clientData = $this->clients_model->get_clients_email($email);
+        
+        if($clientData != null) {
+            $fullClientData = $this->clients_model->get_client_login($clientData->userID);
+            $decodeRef = $this->encrypt->decode($fullClientData->reference);
+            $name = $fullClientData->firstName . ' ' . $fullClientData->lastName;
+            $this->sendDetails($email, $decodeRef, $name);
+            $data['retrieveDetails'] = 'true';
+            $data['retMessage'] = 'Your details will be sent out to you by email';
+            $this->index($data);
+        }
+        else {
+            $data['retrieveDetails'] = 'false';
+            $data['retMessage'] = 'This email was not found';
+            $this->index($data);
+        }
+    }
+    
+    public function resendEmail() {
+        $email = $this->input->post('email');
+        
+        $clientData = $this->clients_model->get_clients_email($email);
+
+        if($clientData != null) {
+            $fullClientData = $this->clients_model->get_client_login($clientData->userID);
+            $decodeRef = $this->encrypt->decode($fullClientData->reference);
+            $this->registerEmail($email, $decodeRef, $fullClientData->userID);
+            $data['resendEmail'] = 'true';
+            $data['reMessage'] = 'Your activation email has been resent to you';
+            $this->index($data);
+        }
+        else {
+            $data['resendEmail'] = 'false';
+            $data['reMessage'] = 'This email was not found';
             $this->index($data);
         }
     }
@@ -110,4 +156,14 @@ class Clients extends CI_Controller {
         $this->email->send();
     }
 
+    private function sendDetails($clientEmail, $refCode, $name) {
+        $this->email->from('admin@plymotion.com', 'Admin');
+        $this->email->to($clientEmail);
+
+        $this->email->subject('Your Login Details');
+        $this->email->message('Hello ' . $name . '<br/><br/>'
+                . 'Your reference code is ' . $refCode);
+
+        $this->email->send();
+    }
 }

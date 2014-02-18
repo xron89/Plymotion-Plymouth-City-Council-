@@ -7,7 +7,6 @@ class Admin extends CI_Controller {
 
         $this->load->model('clients_model');
         $this->load->model('admin_model');
-        $this->load->helper('form');
         $this->load->library('encrypt');
     }
     

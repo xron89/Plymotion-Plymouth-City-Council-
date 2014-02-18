@@ -15,7 +15,6 @@ class Clients extends CI_Controller {
         $this->load->model('clients_model');
         $this->load->library('encrypt');
         $this->load->helper('string');
-        $this->load->helper('form');
         $this->load->library('email', $emailConfig);
     }
 

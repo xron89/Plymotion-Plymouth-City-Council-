@@ -72,7 +72,13 @@
 
                                 <li><a href="<?php echo site_url('courses') ?>">Courses</a></li>
 
-                                <li><a id="adminLogin" href="#" data-toggle="modal" data-target="#adminModal">Admin</a></li>
+                                <?php if($this->session->userdata('logged_in') === true && $this->session->userdata('auth') === 'admin') { ?>
+                                <li><a href="admin/home" >Admin/Trainers</a></li>
+                                <?php } elseif($this->session->userdata('logged_in') === true && $this->session->userdata('auth') === 'trainer') { ?>
+                                <li><a href="trainer/home">Admin/Trainers</a></li>
+                                <?php } else { ?>
+                                <li><a id="adminLogin" href="#" data-toggle="modal" data-target="#adminModal">Admin/Trainers</a></li>
+                                <?php } ?>
 
                             </ul>
 

@@ -24,6 +24,9 @@
                     <li>
                         <a href="#">Venues</a>
                     </li>
+                    <li>
+                        <a href="<?php echo site_url('logout') ?>">Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -33,10 +33,10 @@
             </p>
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12">
-            <?php if ($this->session->userdata('logged_in') === true) { ?>
+            <?php if ($this->session->userdata('logged_in') === true && $this->session->userdata('auth') === null) { ?>
             <h2>Your Control Panel</h2>
             Hello <?php echo $this->session->userdata('name'); ?> <br/>
-            <a href="clientLogout">Logout</a>
+            <a href="logout">Logout</a>
             <?php } else { ?>
                 <h2>Login</h2>
                 <div class="message">

@@ -73,9 +73,9 @@
                                 <li><a href="<?php echo site_url('courses') ?>">Courses</a></li>
 
                                 <?php if($this->session->userdata('logged_in') === true && $this->session->userdata('auth') === 'admin') { ?>
-                                <li><a href="admin/home" >Admin/Instructor</a></li>
+                                <li><a href="<?php echo site_url('admin/home') ?>" >Admin/Instructor</a></li>
                                 <?php } elseif($this->session->userdata('logged_in') === true && $this->session->userdata('auth') === 'instructor') { ?>
-                                <li><a href="instructor/home">Admin/Instructor</a></li>
+                                <li><a href="<?php echo site_url('instructor/home') ?>">Admin/Instructor</a></li>
                                 <?php } else { ?>
                                 <li><a id="adminLogin" href="#" data-toggle="modal" data-target="#adminModal">Admin/Trainers</a></li>
                                 <?php } ?>

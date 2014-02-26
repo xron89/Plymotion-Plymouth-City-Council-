@@ -38,6 +38,14 @@
         alert($reMessage);
     }
 </script>
+<?php } elseif (isset($authCheck)) { ?>
+<script>
+    $authCheck = "<?php echo $authCheck ?>";
+    $authMessage = "<?php echo $authMessage ?>";
+    if ($authCheck === 'false') {
+        alert($authMessage);
+    }
+</script>
 <?php } ?>
 
 <div id="content" class="container">
@@ -56,6 +64,8 @@
             <?php if ($this->session->userdata('logged_in') === true && $this->session->userdata('auth') === null) { ?>
             <h2>Your Control Panel</h2>
             Hello <?php echo $this->session->userdata('name'); ?> <br/>
+            <a href="#">View Bookings</a>
+            <a href="#">Manage Account</a>
             <a href="logout">Logout</a>
             <?php } else { ?>
                 <h2>Login</h2>

@@ -34,6 +34,10 @@ $(document).ready(function() {
     $('#resendEmailSubmit').click(function() {
             $('#resendEmailForm').submit();
     });
+    
+    $('#newVenueSubmit').click(function() {
+            $('#newVenueForm').submit();
+    });
 });
 
 

@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Model extends CI_Model {
+class Admins_Model extends CI_Model {
     public function get_admins($adminID = FALSE) {
 
         if ($adminID === FALSE) {

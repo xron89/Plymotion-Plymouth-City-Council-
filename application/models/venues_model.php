@@ -7,6 +7,7 @@ class Venues_Model extends CI_Model {
             $this->db->select('*');
             $this->db->from('venues');
             $this->db->join('venuefacilites', 'venues.venueID = venuefacilites.venueID');
+            $this->db->order_by("name", "asc"); 
             $query = $this->db->get();
 
             return $query->result_array();
@@ -14,30 +15,20 @@ class Venues_Model extends CI_Model {
 
         $this->db->select('*');
         $this->db->from('venues');
-        $this->db->join('venuefacilites', 'venue.venueID = venuefacilites.venueID');
-        $this->db->where('venue.venueID', $venueID);
+        $this->db->join('venuefacilites', 'venues.venueID = venuefacilites.venueID');
+        $this->db->where('venues.venueID', $venueID);
         $query = $this->db->get();
 
         return $query->row();
     }
     
-    public function get_venueLocations($locationID = FALSE) {
-        if ($locationID === FALSE) {
-            $this->db->select('*');
-            $this->db->from('venuelocations');
-            $this->db->join('venues', 'venue.venueID = venuelocations.venueID');
-            $query = $this->db->get();
-
-            return $query->result_array();
-        }
-
+    public function get_venueLocations($venueID) {
         $this->db->select('*');
         $this->db->from('venuelocations');
-        $this->db->join('venues', 'venue.venueID = venuelocations.venueID');
-        $this->db->where('venuelocations.locationID', $locationID);
+        $this->db->where('venuelocations.venueID', $venueID);
         $query = $this->db->get();
 
-        return $query->row();
+        return $query->result_array();
     }
     
     public function set_venues($data) {
@@ -45,13 +36,14 @@ class Venues_Model extends CI_Model {
         return $this->db->insert_id();
     }
     
-    public function update_venues($data) {
-        
+    public function update_venues($data, $venueID) {
+        $this->db->where('venueID', $venueID);
+        $this->db->update('venues', $data); 
     }
     
     
     public function delete_venues($venueID) {
-        
+        $this->db->delete('venues', array('venueID' => $venueID)); 
     }
     
     public function set_venueFacilites($data) {
@@ -59,27 +51,33 @@ class Venues_Model extends CI_Model {
         return true;
     }
     
-    public function update_venueFacilites($data) {
-        
+    public function update_venueFacilites($data, $venueID) {
+        $this->db->where('venueID', $venueID);
+        $this->db->update('venuefacilites', $data); 
     }
     
     
     public function delete_venueFacilites($venueID) {
-        
+        $this->db->delete('venuefacilites', array('venueID' => $venueID)); 
     }
     
-    public function set_venueLocations() {
+    public function set_venueLocations($data) {
         $this->db->insert('venuelocations', $data);      
         return true;
     }
     
-    public function update_venueLocations($data) {
-        
+    public function update_venueLocations($data, $locationID) {
+        $this->db->where('locationID', $locationID);
+        $this->db->update('venuelocations', $data); 
     }
     
     
-    public function delete_venueLocations($locationID) {
-        
+    public function delete_venueLocation($locationID) {
+        $this->db->delete('venuelocations', array('locationID' => $locationID)); 
+    }
+    
+    public function delete_venueLocations($venueID) {
+        $this->db->delete('venuelocations', array('venueID' => $venueID)); 
     }
 }
 

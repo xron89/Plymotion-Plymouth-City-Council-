@@ -1,5 +1,1 @@
-
-</div>
-</body>
-</html> 
-
+</div><div class="footer">    Copyright Team Venture 2014</div></body></html> 

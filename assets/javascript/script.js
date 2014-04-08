@@ -11,32 +11,58 @@ function divCenter()
 }
 
 $(document).ready(function() {
-    
+
     $('.container_content').load(divCenter());
     $(window).resize();
-  
+
     $('#registerSubmit').click(function() {
-            $('#registerForm').submit();
+        $('#registerForm').submit();
     });
-    
+
     $('#adminSubmit').click(function() {
-            $('#adminForm').submit();
+        $('#adminForm').submit();
     });
-    
+
     $('#newAdminSubmit').click(function() {
-            $('#adminRegForm').submit();
+        $('#adminRegForm').submit();
     });
-    
+
     $('#retrieveDetailsSubmit').click(function() {
-            $('#retrieveDetailsForm').submit();
+        $('#retrieveDetailsForm').submit();
     });
-    
+
     $('#resendEmailSubmit').click(function() {
-            $('#resendEmailForm').submit();
+        $('#resendEmailForm').submit();
+    });
+
+    $('#newVenueSubmit').click(function() {
+        $('#newVenueForm').submit();
+    });
+
+    $('#editVenueSubmit').click(function() {
+        $('#action').val("edit");
+        $('#venueForm').submit();
+    });
+
+    $('#deleteVenueSubmit').click(function() {
+        $('#action').val("delete");
+        $('#venueForm').submit();
     });
     
-    $('#newVenueSubmit').click(function() {
-            $('#newVenueForm').submit();
+    $('#editVenueSubmit').click(function() {
+        $('#editVenueForm').submit();
+    });
+    
+    $('#addLocationSubmit').click(function() {
+        $('#addLocationForm').submit();
+    });
+    
+    $('#editVenueSubmit').click(function() {
+        $('#editVenueForm').submit();
+    });
+    
+    $('#deleteVenueLocation').click(function() {
+        $('#deleteLocationForm').submit();
     });
 });
 

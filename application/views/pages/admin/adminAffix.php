@@ -9,6 +9,9 @@
                                 <a href="<?php echo site_url('admin/home') ?>">Admin Home</a>
                             </li>
                             <li>
+                                <a href="#">Settings</a>
+                            </li>
+                            <li>
                                 <a href="<?php echo site_url('logout') ?>">Logout</a>
                             </li>
                         </ul>
@@ -39,6 +42,9 @@
                     <div class="affixNavContent">
                         <ul class="nav bs-sidenav">
                             <li>
+                                <a href="<?php echo site_url('admin/venueManagment') ?>">Venues</a>
+                            </li>
+                            <li>
                                 <a href="#">Courses</a>
                             </li>
                             <li>
@@ -46,21 +52,6 @@
                             </li>
                             <li>
                                 <a href="#">Bookings</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="affixNav">
-                    <div class="affixNavHeader">
-                        Venue Management
-                    </div>
-                    <div class="affixNavContent">
-                        <ul class="nav bs-sidenav">
-                            <li>
-                                <a href="<?php echo site_url('admin/venueManagment') ?>">Venues</a>
-                            </li>
-                            <li>
-                                <a href="#">Locations</a>
                             </li>
                         </ul>
                     </div>

@@ -23,7 +23,7 @@
 <div id="content" class="container">
     <div class="row">
         <div class="col-md-8 col-sm-8 col-xs-12">
-            <h2>Plymotion</h2>
+            <h2>Welcome to Plymotion</h2>
             <p>Plymotion is a scheme that aims to make it easier for you to get around Plymouth by bus, by bike and on foot.</p>
             <p>We are now a third of the way through the three year scheme which was launched in 2012 to introduce new walking and cycling links connecting the east and west of the city, including the restoration of the former Laira Railway Bridge.</p>
 
@@ -84,16 +84,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 col-xs-12">
             <img src="<?php echo base_url('/assets/img/DFT.png') ?>">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 col-xs-12">
             <img src="<?php echo base_url('/assets/img/FGW.png') ?>">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 col-xs-12">
             <img src="<?php echo base_url('/assets/img/COP.png') ?>">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6 col-xs-12">
             <img src="<?php echo base_url('/assets/img/NHS.png') ?>">
         </div>
     </div>

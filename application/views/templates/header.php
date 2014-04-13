@@ -56,8 +56,6 @@
                 <image src="<?php echo base_url('/assets/img/banner.jpg') ?>">
             </div>
 
-            <div class="container">
-
                 <div id="navigation">
 
                     <div class="row">
@@ -87,8 +85,6 @@
                     </div>
 
                 </div>
-
-            </div>
 
 
 

@@ -90,14 +90,76 @@ padding:0px;
 }
 
 
+/* --- Admin Styles --- */
 
+.bs-sidenav li i{
+	margin-right: 10px;
+	color:#3f444c;
+}
 
+.bs-sidenav li a:hover i{
+	color:#2bbce0;
+}
 
+.affixNavHeader{
+	padding-left: 13px;
+	padding-top: 20px;
+	padding-bottom: 15px;
+}
 
+.side-bar{
+	margin-top: -15px;
+	color: #3f444c;
+	padding:0px;
+	border-right: 1px solid #dddddd;
+}
 
+.bs-sidenav li a{
+	border-bottom: 1px solid #dddddd;
+}
 
+.bs-sidenav li a:hover{
+	background-color:#dddddd;
+}
 
+.stats{
+	margin-top: 150px;
+}
 
+.panel i{
+	display:block;
+	float: left;
+	padding-right: 10px;
+	padding-top: 5px;
+}
 
+.panel h2{
+	margin:0px;
+	padding:0px;
+}
+
+.panel-sucess{
+	background-color: #1CAF9A;
+	border: 1px solid #1CAF9A;
+	padding: 15px;
+	border-radius: 3px;
+	color: #ffffff;
+}
+
+.panel-alert{
+	background-color: #D9534F;
+	border: 1px solid #D9534F;
+	padding: 15px;
+	border-radius: 3px;
+	color: #ffffff;
+}
+
+.panel-info{
+	background-color: #428BCA;
+	border: 1px solid #428BCA;
+	padding: 15px;
+	border-radius: 3px;
+	color: #ffffff;	
+}
 
 

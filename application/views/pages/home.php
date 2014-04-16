@@ -115,16 +115,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="col-md-2 col-sm-6 col-xs-12">
             <img src="<?php echo base_url('/assets/img/DFT.png') ?>">
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="col-md-2 col-sm-6 col-xs-12">
             <img src="<?php echo base_url('/assets/img/FGW.png') ?>">
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="col-md-2 col-sm-6 col-xs-12">
             <img src="<?php echo base_url('/assets/img/COP.png') ?>">
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="col-md-2 col-sm-6 col-xs-12">
             <img src="<?php echo base_url('/assets/img/NHS.png') ?>">
         </div>
     </div>

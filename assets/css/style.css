@@ -162,4 +162,28 @@ padding:0px;
 	color: #ffffff;	
 }
 
+/* --- News Styles --- */
+
+.widget{
+  background-attachment:scroll;
+  background-color:#EEEEEE;
+  background-image:none;
+  background-position:0 0;
+  background-repeat:repeat repeat;
+  border:1px solid #CCCCCC;
+  margin-bottom:150px;
+  padding:12px;
+  word-wrap:break-word;
+  margin-top: 80px;
+}
+
+.widget h3{
+	font-size: 16px;
+	margin: 0px;
+}
+
+.news-box{
+	margin-top: 30px;
+	padding: 30px;
+}
 

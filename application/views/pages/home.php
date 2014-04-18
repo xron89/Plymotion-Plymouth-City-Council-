@@ -127,6 +127,12 @@
         <div class="col-md-2 col-sm-6 col-xs-12">
             <img src="<?php echo base_url('/assets/img/NHS.png') ?>">
         </div>
+        <div class="col-md-2 col-sm-6 col-xs-12">
+            <img src="<?php echo base_url('/assets/img/TT.png') ?>">
+        </div>
+        <div class="col-md-2 col-sm-6 col-xs-12">
+            <img src="<?php echo base_url('/assets/img/PCB.png') ?>">
+        </div>
     </div>
 
 </div>

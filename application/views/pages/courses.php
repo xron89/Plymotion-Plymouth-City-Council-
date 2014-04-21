@@ -43,13 +43,13 @@
 								<td>5</td>
 							</tr>
 							<tr>
-								<td>6</td>
+								<td>6<span class="cancel">Canceled</span></td>
 								<td>7</td>
 								<td>8</td>
 								<td>9</td>
 								<td>10</td>
 								<td>11</td>
-								<td>12<span class="event">Group k</span></td>
+								<td>12<span class="level1">11:00 - 12:00</span></td>
 							</tr>
 							<tr>
 								<td>13</td>
@@ -65,8 +65,8 @@
 								<td>21</td>
 								<td>22</td>
 								<td>23</td>
-								<td>24<span class="event">Group k</span></td>
-								<td>25<span class="event">Group k</span></td>
+								<td>24<span class="level1">1:00 - 2:00</span></td>
+								<td>25<span class="level1">1:00 - 2:00</span></td>
 								<td>26</td>
 							</tr>
 							<tr>
@@ -81,6 +81,26 @@
 						</tbody>
 					</table>
 				</div>  <!-- End Column -->
+				<div class="col-md-2">
+					<div class="key-wrapper">
+						<div class="key">
+							<span class="level1">10:00 - 11:00</span>
+						</div>
+						<p>Level 1 Course</p>
+						<div class="key">
+							<span class="level2">10:00 - 11:00</span>
+						</div>
+						<p>Level 2 Course</p>
+						<div class="key">
+							<span class="level3">10:00 - 11:00</span>
+						</div>
+						<p>Level 3 Course</p>
+						<div class="key">
+							<span class="cancel">Canceled</span>
+						</div>
+						<p>Course canceled</p>
+					</div>
+				</div>
         </div>
 	</div>
 </div>

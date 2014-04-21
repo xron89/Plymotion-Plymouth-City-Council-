@@ -228,7 +228,18 @@ padding:0px;
 	color:#e1e1e1;
 }
 
-#calendar-wrapper td span.event{
+.key{
+	margin-top: 100px;
+	position: relative;
+}
+
+.key p{
+	margin-top:30px;
+	display: block;
+	text-align: center;
+}
+
+span.level1{
 	background-color: #f1c40f;
 	border-radius: 3px;
 	padding: 2px 5px;
@@ -239,8 +250,51 @@ padding:0px;
 	width: 96%;
 	color: #ffffff;
 	font-size: 12px;
+	cursor: pointer;
+	text-align: center;
 }
 
+span.level2{
+	background-color: #2ecc71;
+	border-radius: 3px;
+	padding: 2px 5px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin: 2px;
+	width: 96%;
+	color: #ffffff;
+	font-size: 12px;
+	cursor: pointer;
+	text-align: center;
+}
 
+span.level3{
+	background-color: #3498db;
+	border-radius: 3px;
+	padding: 2px 5px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin: 2px;
+	width: 96%;
+	color: #ffffff;
+	font-size: 12px;
+	cursor: pointer;
+	text-align: center;
+}
 
-
+span.cancel{
+	background-color: #e74c3c;
+	border-radius: 3px;
+	padding: 2px 5px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin: 2px;
+	width: 96%;
+	color: #ffffff;
+	font-size: 12px;
+	cursor: pointer;
+	text-align: center;
+}

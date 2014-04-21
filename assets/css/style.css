@@ -189,6 +189,57 @@ padding:0px;
 
 
 /* --- Courses Styles --- */
+#calendar-wrapper .day{
+	text-align: center;
+	font-size: 18px;
+}
+
+#calendar-wrapper .month{
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#calendar-wrapper .day span{
+	display: inline-block;
+	font-size: 28px;
+	padding:0px 3%;
+	text-align: center;
+}
+
+#calendar-wrapper table, th, td{
+	border: 1px solid #e1e1e1;
+}
+
+#calendar-wrapper th{
+	font-weight: bolder;
+}
+
+#calendar-wrapper td{
+	padding: 41.8px;
+	text-align: center;
+	position: relative;
+}
+
+#calendar-wrapper thead td{
+	padding: 25px 41.8px;
+}
+
+#calendar-wrapper td.inactive{
+	color:#e1e1e1;
+}
+
+#calendar-wrapper td span.event{
+	background-color: #f1c40f;
+	border-radius: 3px;
+	padding: 2px 5px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin: 2px;
+	width: 96%;
+	color: #ffffff;
+	font-size: 12px;
+}
 
 
 

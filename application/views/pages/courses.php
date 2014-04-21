@@ -8,10 +8,10 @@
 ?>
 <div id="content" class="container">
 	<div class="row">
-		<div class="col-md-8 col-sm-8 col-xs-12">
+		<div class="col-md-10 col-sm-10 col-xs-12">
             <h2>Plymotion Courses</h2>
             <br>
-				<div id="red-calendarWrapper" class="col-md-4">
+				<div id="calendar-wrapper" class="col-md-10">
 					<div id="tableHeader">
 						<div class="day">
 							<a href="">&laquo;</a><span>14</span><a href="#">&raquo;</a>
@@ -49,7 +49,7 @@
 								<td>9</td>
 								<td>10</td>
 								<td>11</td>
-								<td>12</td>
+								<td>12<span class="event">Group k</span></td>
 							</tr>
 							<tr>
 								<td>13</td>
@@ -65,8 +65,8 @@
 								<td>21</td>
 								<td>22</td>
 								<td>23</td>
-								<td>24</td>
-								<td>25</td>
+								<td>24<span class="event">Group k</span></td>
+								<td>25<span class="event">Group k</span></td>
 								<td>26</td>
 							</tr>
 							<tr>

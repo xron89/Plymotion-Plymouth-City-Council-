@@ -48,7 +48,7 @@
                                 <a href="#">Courses</a>
                             </li>
                             <li>
-                                <a href="#">Sessions</a>
+                                <a href="<?php echo site_url('admin/sessionManagment/active') ?>">Sessions</a>
                             </li>
                             <li>
                                 <a href="#">Bookings</a>

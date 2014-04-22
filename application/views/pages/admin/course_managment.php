@@ -1,13 +1,25 @@
 <div class="col-md-10">
     <div class="header">
-        <h2>Venues</h2>
+        <h2>Courses</h2>
     </div>
     
     <div class="tableContainer">
         <?php
-            $attributes = array('id' => 'venueForm', 'role' => 'form');
-            echo form_open('admin/manageVenues', $attributes);
+            $attributes = array('id' => 'courseForm', 'role' => 'form');
+            echo form_open('admin/manageCourses', $attributes);
         ?>
+        <div class="tableOptions">
+            <div class="bulkOptions">
+                <div class="row">
+                    <div class="col-xs-2">
+                            <select class="form-control" id="bulkOptions">
+                                <option >Bulk Options</option>
+                                <option selected value="delete">Delete</option>
+                            </select>              
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="tableContent">
             <table class="table">
@@ -153,3 +165,4 @@
     alert($errorMessage);
 </script>
 <?php } ?>
+

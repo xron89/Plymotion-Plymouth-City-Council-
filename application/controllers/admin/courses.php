@@ -6,6 +6,7 @@ class Courses extends CI_Controller {
         parent::__construct();
         
         $this->load->model('venues_model');
+        $this->load->model('courses_model');
     }
     
     public function index($data, $page) {
@@ -30,6 +31,13 @@ class Courses extends CI_Controller {
         $data['venues'] = $this->venues_model->get_venues();
 
         $this->index($data, 'venue_managment');
+    }
+    
+    public function sessionManagment($status = "active") {
+        $data['title'] = 'Session Managment';
+        $data['sessions'] = $this->courses_model->get_sessions($status);
+
+        $this->index($data, 'session_managment');
     }
 
     public function newVenue() {
@@ -71,7 +79,7 @@ class Courses extends CI_Controller {
         $data['title'] = 'Venue Managment';
         $data['venues'] = $this->venues_model->get_venues();
 
-        if (sizeof($selected) > 1) {     
+        if ($selected == null) {     
             $data['errorMessage'] = "Please select one entry or use the bulk delete option.";
             $this->index($data, 'venue_managment');
         } else {

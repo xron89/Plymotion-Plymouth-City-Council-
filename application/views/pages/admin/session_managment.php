@@ -1,29 +1,50 @@
 <div class="col-md-10">
     <div class="header">
-        <h2>Venues</h2>
+        <h2>Sessions</h2>
     </div>
     
     <div class="tableContainer">
         <?php
-            $attributes = array('id' => 'venueForm', 'role' => 'form');
-            echo form_open('admin/manageVenues', $attributes);
+            $attributes = array('id' => 'sessionForm', 'role' => 'form');
+            echo form_open('admin/manageSessions', $attributes);
         ?>
+        <div class="tableOptions">
+            <div class="bulkOptions">
+                <div class="dropdown">
+                    <button class="btn btn-primary" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        Session Status
+                        <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url('admin/sessionManagment/active') ?>">Active</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url('admin/sessionManagment/finished') ?>">Finished</a></li>
+                    </ul>
+                </div>       
+            </div>
+        </div>
 
         <div class="tableContent">
             <table class="table">
                 <tr>
                     <th><input id="checkAll" type="checkbox" /></th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
+                    <th>Session ID</th>
+                    <th>Location</th>
+                    <th>Level</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
                 </tr>
 
-                <?php foreach ($venues as $venue_item): ?>
+                <?php foreach ($sessions as $session_item): ?>
                     <tr>
-                        <td><input type="checkbox" name="selected[]" value="<?php echo $venue_item['venueID'] ?>" /></td>
-                        <td><?php echo $venue_item['name'] ?></td>
-                        <td><?php if($venue_item['phone'] == null) { echo "No Number"; } else { echo $venue_item['phone']; } ?></td>
-                        <td><?php if($venue_item['email'] == null) { echo "No Email"; } else { echo $venue_item['email']; } ?></td>
+                        <td><input type="checkbox" name="selected[]" value="<?php echo $session_item['sessionID'] ?>" /></td>
+                        <td><?php echo $session_item['sessionID'] ?></td>
+                        <td><?php echo $session_item['name'] ?></td>
+                        <td><?php echo $session_item['level'] ?></td>
+                        <td><?php echo $session_item['date'] ?></td>
+                        <td><?php echo $session_item['startTime'] ?></td>
+                        <td><?php echo $session_item['endTime'] ?></td>
                     </tr>
                 <?php endforeach ?>
             </table>
@@ -32,11 +53,11 @@
         </form>
     </div>
     
-    <button class="btn btn-default" name="newVenueSubmit" data-toggle="modal" data-target="#newVenueModal">New Venue</button>
-    <button class="btn btn-default" name="editVenue" id="editVenueSubmit" >Edit Venue</button>
-    <button class="btn btn-default" name="deleteVenue" id="deleteVenueSubmit" >Delete Venue</button>
+    <button class="btn btn-default" name="newSessionSubmit" data-toggle="modal" data-target="#newSessionModal">New Session</button>
+    <button class="btn btn-default" name="editSession" id="editVenueSubmit" >Edit Session</button>
+    <button class="btn btn-default" name="deleteSession" id="deleteVenueSubmit" >Delete Session</button>
 
-    <div class="modal fade" id="newVenueModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="newSessionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -153,3 +174,6 @@
     alert($errorMessage);
 </script>
 <?php } ?>
+
+
+

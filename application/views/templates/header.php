@@ -32,6 +32,8 @@
 
             <link rel="stylesheet" href="<?php echo base_url('/assets/css/style.css') ?>" />
 
+            <link rel="stylesheet" href="<?php echo base_url('/assets/font-awesome/css/font-awesome.min.css') ?>" />
+
 
 
             <!-- JavaScript -->
@@ -55,8 +57,6 @@
             <div id="banner">
                 <image src="<?php echo base_url('/assets/img/banner.jpg') ?>">
             </div>
-
-            <div class="container">
 
                 <div id="navigation">
 
@@ -87,8 +87,6 @@
                     </div>
 
                 </div>
-
-            </div>
 
 
 

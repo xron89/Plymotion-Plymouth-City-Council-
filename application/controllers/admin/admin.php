@@ -6,6 +6,8 @@ class Admin extends CI_Controller {
         parent::__construct();
         
         $this->load->library('encrypt');
+        
+        $this->load->model('clients_model');
     }
 
     public function index($data, $page) {
@@ -27,6 +29,7 @@ class Admin extends CI_Controller {
 
     public function home() {
         $data['title'] = 'Admin Home';
+        $data['contacts'] = $this->clients_model->get_new_clients();
 
         $this->index($data, 'admin_home');
     }

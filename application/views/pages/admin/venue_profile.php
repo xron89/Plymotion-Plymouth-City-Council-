@@ -1,5 +1,5 @@
 <div class="col-md-10">
-    <div class="header">
+    <div class="headerText">
         <h2><?php echo $venue->name . " Venue"; ?></h2>
     </div>
     <div id="form">
@@ -96,11 +96,11 @@
         </form>
     </div>
     
-    <div class="venueLocations">
+    <div class="row venueLocations">
         <div class="header">
             <h4>Locations</h4>
         </div>
-        <div class="tableContent" id="locationTable">           
+        <div class="col-md-5 tableContent" id="locationTable">           
             <table class="table" style="width: 400px;">
                 <tr>
                     <th><input id="checkAll" type="checkbox" /></th>
@@ -123,7 +123,7 @@
                 <?php } ?>
             </table>
         </div>
-        <div class="locationButtons">
+        <div class="col-md-1 locationButtons">
             <div>
                 <button type="button" class="glyphicon glyphicon-plus" id="addVenueLocation" data-toggle="modal" data-target="#addLocationModal" title="Add Location"></button>
             </div>
@@ -134,7 +134,7 @@
     </div>
     
     <div class="formButtons">
-        <button type="button" class="btn btn-default" id="editVenueSubmit">Submit</button>
+        <button type="button" class="btn btn-primary" id="editVenueSubmit">Submit</button>
         <a href="<?php echo site_url('admin/venueManagment') ?>">
             <button type="button" class="btn btn-default" id="cancelVenueEdit">Back</button>
         </a>

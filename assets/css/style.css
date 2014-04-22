@@ -298,3 +298,21 @@ span.cancel{
 	cursor: pointer;
 	text-align: center;
 }
+
+/*-- Venue Styles --*/
+
+.formCheckBoxes {
+    margin-left: 200px;
+}
+
+.venueLocations {
+    margin-left: 80px;
+}
+
+.formButtons {
+    margin-left: 80px;
+}
+
+.headerText {
+    margin-left: 80px;
+}

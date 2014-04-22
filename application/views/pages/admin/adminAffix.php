@@ -1,7 +1,7 @@
 <div id="content" class="container">
     <div class="row">
         <div class="col-md-2 side-bar">
-            <div data-spy="affix" data-offset-top="200" data-offset-bottom="0">
+            <div data-spy="affix" data-offset-top="200" data-offset-bottom="10">
                 <div class="affixNav">
                     <div class="affixNavContent">
                         <ul class="nav bs-sidenav">

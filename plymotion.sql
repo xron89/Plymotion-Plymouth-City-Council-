@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 02, 2014 at 11:49 PM
+-- Generation Time: Apr 23, 2014 at 05:22 PM
 -- Server version: 5.6.11
 -- PHP Version: 5.5.3
 
@@ -33,16 +33,18 @@ CREATE TABLE IF NOT EXISTS `adminlogins` (
   `username` varchar(60) COLLATE latin1_general_ci NOT NULL,
   `password` varchar(400) COLLATE latin1_general_ci NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `trainer` tinyint(1) NOT NULL DEFAULT '0',
+  `instructor` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`adminID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `adminlogins`
 --
 
-INSERT INTO `adminlogins` (`adminID`, `username`, `password`, `admin`, `trainer`) VALUES
-(2, 'Shadow2004', 'LPoy6dUUePo40QnJ/qS2mZV4F5vpJGbakYjFJwxXicAOTdP0dCtAqruCvalpEKtrwnIfH0TJ/tDsoBEQ/WTA+Q==', 1, 0);
+INSERT INTO `adminlogins` (`adminID`, `username`, `password`, `admin`, `instructor`) VALUES
+(2, 'Shadow2004', 'LPoy6dUUePo40QnJ/qS2mZV4F5vpJGbakYjFJwxXicAOTdP0dCtAqruCvalpEKtrwnIfH0TJ/tDsoBEQ/WTA+Q==', 1, 0),
+(3, 'admin', 'R90cA5lXkIcNe3aSzj0g5cUJpzJjNcMFvB8YrtH/eeq8Pygb/+Xwt/i7IcxuLwhqvOvgyRMV4CzXZJTKWLHJ9A==', 1, 0),
+(4, 'trainer', 'QL5ZpCSMXBdRAQlejjRQXmqu6ePw5i6e2Vti/MRj99sw+zN2NGfnQ5ed1a0N/NVIEyqBLhe522oxLnylpY7IYw==', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -166,6 +168,13 @@ CREATE TABLE IF NOT EXISTS `instructors` (
   PRIMARY KEY (`instructorID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
+--
+-- Dumping data for table `instructors`
+--
+
+INSERT INTO `instructors` (`instructorID`, `name`, `address`, `postCode`, `phoneNo`, `mobileNo`, `email`, `website`) VALUES
+(4, 'Test', 'test', 'tttt', '1165156', '45454', 'fgfd@df.com', 'fsdfs.com');
+
 -- --------------------------------------------------------
 
 --
@@ -209,17 +218,25 @@ CREATE TABLE IF NOT EXISTS `instructorsinformation` (
 
 CREATE TABLE IF NOT EXISTS `sessionplans` (
   `sessionID` int(11) NOT NULL,
-  `clientNeeds` varchar(600) COLLATE latin1_general_ci NOT NULL,
-  `outcomes` varchar(600) COLLATE latin1_general_ci NOT NULL,
-  `revRiskAsses` tinyint(1) NOT NULL,
-  `checkEquip` tinyint(1) NOT NULL,
-  `docReady` tinyint(1) NOT NULL,
-  `helmAndCloth` tinyint(1) NOT NULL,
-  `bikeCheck` tinyint(1) NOT NULL,
-  `safetyBrief` tinyint(1) NOT NULL,
-  `notes` varchar(1000) COLLATE latin1_general_ci NOT NULL,
+  `clientNeeds` varchar(600) COLLATE latin1_general_ci DEFAULT NULL,
+  `outcomes` varchar(600) COLLATE latin1_general_ci DEFAULT NULL,
+  `revRiskAsses` tinyint(1) DEFAULT NULL,
+  `checkEquip` tinyint(1) DEFAULT NULL,
+  `docReady` tinyint(1) DEFAULT NULL,
+  `helmAndCloth` tinyint(1) DEFAULT NULL,
+  `bikeCheck` tinyint(1) DEFAULT NULL,
+  `safetyBrief` tinyint(1) DEFAULT NULL,
+  `notes` varchar(1000) COLLATE latin1_general_ci DEFAULT NULL,
   PRIMARY KEY (`sessionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+--
+-- Dumping data for table `sessionplans`
+--
+
+INSERT INTO `sessionplans` (`sessionID`, `clientNeeds`, `outcomes`, `revRiskAsses`, `checkEquip`, `docReady`, `helmAndCloth`, `bikeCheck`, `safetyBrief`, `notes`) VALUES
+(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -234,11 +251,18 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `date` date NOT NULL,
   `startTime` time NOT NULL,
   `endTime` time NOT NULL,
-  `instructorID` int(11) NOT NULL,
-  `assistantID` int(11) NOT NULL,
-  `noInGroup` int(11) NOT NULL,
+  `instructorID` int(11) DEFAULT NULL,
+  `assistantID` int(11) DEFAULT NULL,
   PRIMARY KEY (`sessionID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`sessionID`, `locationID`, `level`, `date`, `startTime`, `endTime`, `instructorID`, `assistantID`) VALUES
+(2, 2, 2, '2014-04-30', '13:25:00', '16:00:00', NULL, NULL),
+(5, 4, 2, '2014-11-19', '13:12:00', '14:12:00', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -257,6 +281,19 @@ CREATE TABLE IF NOT EXISTS `venuefacilites` (
   PRIMARY KEY (`venueID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
+--
+-- Dumping data for table `venuefacilites`
+--
+
+INSERT INTO `venuefacilites` (`venueID`, `toilets`, `bikePark`, `changing`, `lockers`, `carPark`, `refreshments`) VALUES
+(1, 1, 1, 0, 1, 1, 1),
+(2, 1, 0, 0, 0, 1, 0),
+(3, 1, 0, 0, 0, 0, 1),
+(6, 1, 0, 0, 0, 1, 0),
+(7, 0, 1, 0, 0, 0, 0),
+(10, 1, 0, 1, 0, 1, 1),
+(11, 1, 1, 0, 0, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -264,10 +301,19 @@ CREATE TABLE IF NOT EXISTS `venuefacilites` (
 --
 
 CREATE TABLE IF NOT EXISTS `venuelocations` (
-  `locationID` int(11) NOT NULL,
+  `locationID` int(11) NOT NULL AUTO_INCREMENT,
   `venueID` int(11) NOT NULL,
-  `name` varchar(100) COLLATE latin1_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+  `name` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`locationID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `venuelocations`
+--
+
+INSERT INTO `venuelocations` (`locationID`, `venueID`, `name`) VALUES
+(2, 1, 'Bottom of Park'),
+(4, 1, 'High Way');
 
 -- --------------------------------------------------------
 
@@ -285,7 +331,20 @@ CREATE TABLE IF NOT EXISTS `venues` (
   `website` varchar(200) COLLATE latin1_general_ci DEFAULT NULL,
   `mapLink` varchar(200) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`venueID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `venues`
+--
+
+INSERT INTO `venues` (`venueID`, `name`, `opening`, `address`, `phone`, `email`, `website`, `mapLink`) VALUES
+(1, 'Central Park', 'See website', 'Plymouth Life Centre, Mayflower Drive, Plymouth, PL2 3DG', '01752 606900', 'PlymLifeCentreInfo@everyoneactive.com', 'http://www.everyoneactive.com/tabid/1683/Default.aspx', 'www.test.com'),
+(2, 'Civic Centre', '08:30 – 17:00 Mon - Fri ', 'Civic Centre, Armada Way, Plymouth ,PL1 2EW', '01752 668000', '', 'www.plymouth.gov.uk', 'www.googlemaps.com'),
+(3, 'Devonport Park', 'Vary by time of year – check website ', 'Lower Lodge, Devonport Park, Plymouth PL1 4BU', '01752 563625', '', 'http://www.plymouth.gov.uk/devonportpark', 'www.googlemap.com'),
+(6, 'Tothill Community Centre', 'Vary by time of year – check website ', 'Knighton Road, Plymouth, PL4 9DA', '01752 665919', '', 'http://www.tothillpark.co.uk/', 'www.googlemap.com'),
+(7, 'Victoria Park', 'See Website', 'Victoria Park, Victoria Avenue, Plymouth, PL1 5NJ', '', '', 'www.plymouth.gov.uk/homepage/leisureandtourism/parksnatureandgreenspaces/parks/victoriapark.htm', 'www.googlemap.com'),
+(10, 'Hoe Park', 'The Hoe Park is open 24 hours a day and is free to access', 'Hoe Park, Hoe Road, Plymouth, PL1 2PA', '01752 606034', 'streetsceneservices@plymouth.gov.uk', 'www.plymouth.gov.uk/homepage/leisureandtourism/parksnatureandgreenspaces/parks/hoepark.htm', 'www.googlemap.com'),
+(11, 'Saltram House', 'Vary by time of year – check website', 'Plympton, Plymouth, PL7 1UH', '01752 333503', '', 'www.nationaltrust.org.uk/saltram/', 'www.googlemap.com');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

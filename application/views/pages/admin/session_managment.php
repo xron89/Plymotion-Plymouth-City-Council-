@@ -62,97 +62,84 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">New Venue</h4>
+                    <h4 class="modal-title">New Session</h4>
                 </div>
                 <div class="modal-body">
                     <div id="form">
                         <div class="message"></div>
                         <?php
-                        $attributes = array('id' => 'newVenueForm', 'class' => 'form-horizontal', 'role' => 'form');
-                        echo form_open('admin/newVenue', $attributes);
+                        $attributes = array('id' => 'newSessionForm', 'class' => 'form-horizontal', 'role' => 'form');
+                        echo form_open('admin/newSession', $attributes);
                         ?>
                         <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label">Name:</label>
+                            <label for="venue" class="col-sm-2 control-label">Venue:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="name" name="name" placeholder="Hide Park">
+                                <select class="form-control" name="venue" id="venue">
+                                    <option selected>Select Venue</option>
+                                    <?php foreach ($venues as $venue): ?>
+                                    <option value="<?php echo $venue['venueID'] ?>"><?php echo $venue['name'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="opening" class="col-sm-2 control-label">Opening:</label>
+                            <label for="venuelocation" class="col-sm-2 control-label">Venue Location:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="opening" name="opening" placeholder="South Side">
+                                <select class="form-control" name="venuelocation" id="venuelocation">
+                                    <option>Select Venue First</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="address" class="col-sm-2 control-label">Address:</label>
+                            <label for="level" class="col-sm-2 control-label">Level:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="address" name="address" placeholder="2 South Hay, Plymouth">
+                                <select class="form-control" name="level" id="level">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="phone" class="col-sm-2 control-label">Phone:</label>
+                            <label for="date" class="col-sm-2 control-label">Date:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="tel" id="phone" name="phone" placeholder="01395 458965">
+                                <input class="form-control" type="text" id="date" name="date" placeholder="19-11-2014">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="col-sm-2 control-label">Email:</label>
+                            <label for="start" class="col-sm-2 control-label">Start Time:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="email" id="email" name="email" placeholder="jack@hotmail.com">
+                                <input class="form-control" type="text" id="start" name="start" placeholder="13:12:00">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="website" class="col-sm-2 control-label">Website:</label>
+                            <label for="end" class="col-sm-2 control-label">End Time:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="url" id="website" name="website" placeholder="www.wedurl.com">
+                                <input class="form-control" type="text" id="end" name="end" placeholder="14:25:00">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="mapLink" class="col-sm-2 control-label">Map Link:</label>
+                            <label for="instructor" class="col-sm-2 control-label">Instructor:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="url" id="mapLink" name="mapLink" placeholder="www.googlemap.com">
+                                <select class="form-control" name="instructor" id="instructor">
+                                    <option value="0">Select Instructor</option>
+                                    <?php foreach ($instructors as $instructor): ?>
+                                    <option value="<?php echo $instructor['instructorID'] ?>"><?php echo $instructor['name'] ?></option>
+                                    <?php endforeach ?>
+                                    <option value="0">TBD</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="formCheckBoxes">
-                            <div class="form-group">
-                                <div class="checkbox-inline">
-                                    <label>
-                                        <input type="checkbox" name="toilets" value="1">
-                                        Toilets
-                                    </label>
-                                </div>
-                                <div class="checkbox-inline">
-                                    <label>
-                                        <input type="checkbox" name="bikePark" value="1">
-                                        Bike Park
-                                    </label>
-                                </div>
-                                <div class="checkbox-inline">
-                                    <label>
-                                        <input type="checkbox" name="changing" value="1">
-                                        Changing
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="checkbox-inline">
-                                    <label>
-                                        <input type="checkbox" name="lockers" value="1">
-                                        Lockers
-                                    </label>
-                                </div>
-                                <div class="checkbox-inline">
-                                    <label>
-                                        <input type="checkbox" name="carPark" value="1">
-                                        Car Park
-                                    </label>
-                                </div>
-                                <div class="checkbox-inline">
-                                    <label>
-                                        <input type="checkbox" name="refreshments" value="1">
-                                        Refreshments
-                                    </label>
-                                </div>
+                        <div class="form-group">
+                            <label for="assistant" class="col-sm-2 control-label">Assistant:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="assistant" id="assistant">
+                                    <option value="0">Select Assistant</option>
+                                    <?php foreach ($instructors as $instructor): ?>
+                                    <option value="<?php echo $instructor['instructorID'] ?>"><?php echo $instructor['name'] ?></option>
+                                    <?php endforeach ?>
+                                    <option value="0">None</option>
+                                </select>
                             </div>
                         </div>
                         </form>
@@ -160,7 +147,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="newVenueSubmit">Submit</button>
+                    <button type="button" class="btn btn-primary" id="newSessionSubmit">Submit</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

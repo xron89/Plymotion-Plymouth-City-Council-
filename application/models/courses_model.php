@@ -93,4 +93,13 @@ class Courses_Model extends CI_Model {
         $this->db->delete('venuelocations', array('venueID' => $venueID));
     }
 
+    public function set_session($data) {
+        $this->db->insert('sessions', $data);
+        $sessionID = $this->db->insert_id();
+        $planData = array(
+            'sessionID' => $sessionID
+        );
+        $this->db->insert('sessionplans', $planData);
+        return true;
+    }
 }

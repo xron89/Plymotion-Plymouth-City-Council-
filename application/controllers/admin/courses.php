@@ -191,7 +191,7 @@ class Courses extends CI_Controller {
                 echo "<option value=$item[locationID]>$item[name]</option>";
             }
         } else {
-            
+            echo "<option value=0>No Locations</option>";
         }
     }
 
@@ -225,7 +225,21 @@ class Courses extends CI_Controller {
     
     private function sessionProfile($sessionID, $data = null) {
         $data['title'] = 'Edit Session';
-        $data['session'] = $this->courses_model->get_sessions(null, $sessionID);
+        $session = $this->courses_model->get_sessions(null, $sessionID);
+        $data['session'] = $session;
+        $data['venues'] = $this->venues_model->get_venues();
+        $data['venue'] = $this->venues_model->get_venues($session->venueID);
+        $data['bookings'] = $this->courses_model->get_bookings($session->sessionID);
+        $data['instructors'] = $this->instructors_model->get_instructors();
+        
+        if ($session->instructorID != "0") {
+            $data['instructor'] = $this->instructors_model->get_instructors($session->instructorID);
+        }
+        
+        if ($session->assistantID != "0") {
+            $data['assistant'] = $this->instructors_model->get_instructors($session->instructorID);
+        }
+        
 
         $this->index($data, 'session_profile');
     }

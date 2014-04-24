@@ -37,12 +37,16 @@
                 </tr>
 
                 <?php foreach ($sessions as $session_item): ?>
+                <?php 
+                    $date = strtotime($session_item['date']);
+                    $date = date("d-m-Y", $date); 
+                ?>
                     <tr>
                         <td><input type="checkbox" name="selected[]" value="<?php echo $session_item['sessionID'] ?>" /></td>
                         <td><?php echo $session_item['sessionID'] ?></td>
                         <td><?php echo $session_item['name'] ?></td>
                         <td><?php echo $session_item['level'] ?></td>
-                        <td><?php echo $session_item['date'] ?></td>
+                        <td><?php echo $date ?></td>
                         <td><?php echo $session_item['startTime'] ?></td>
                         <td><?php echo $session_item['endTime'] ?></td>
                     </tr>

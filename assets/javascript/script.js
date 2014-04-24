@@ -81,7 +81,7 @@ $(document).ready(function() {
     
     $('#venue').change(function() {
         var venueID = $('#venue').val();
-        $.get("../venueLocations/" + venueID, function (data) {
+        $.get("/plymotion/index.php/admin/venueLocations/" + venueID, function (data) {
           // update the textarea with the time
           $("#venuelocation").html(data);
         });

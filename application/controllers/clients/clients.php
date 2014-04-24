@@ -174,6 +174,7 @@ class Clients extends CI_Controller {
 
     public function editUserAdditional() {
         $userID = $this->input->post('userID');
+        $user = $this->clients_model->get_clients($userID);
         $data = array(
             'ecName' => $this->input->post('ecname'),
             'ecRelationship' => $this->input->post('ecrelation'),
@@ -183,8 +184,12 @@ class Clients extends CI_Controller {
             'medicalDetails' => $this->input->post('medDetails')
         );
         
-        $this->clients_model->update_additional_details($data, $userID);
-        
+        if($user->newClient === "1") {
+            $this->clients_model->update_additional_details($data, $userID, TRUE);
+        } else {
+            $this->clients_model->update_additional_details($data, $userID);
+        }
+            
         $this->userProfile($userID);
     }
 

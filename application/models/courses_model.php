@@ -39,6 +39,35 @@ class Courses_Model extends CI_Model {
         return $query->row();
     }
 
+    public function get_bookings($sessionID = FALSE, $userID = FALSE) {
+
+        if ($sessionID === FALSE) {
+            $this->db->select('*');
+            $this->db->from('bookings');
+            $this->db->join('sessions', 'bookings.sessionID = sessions.sessionID');            
+            $query = $this->db->get();
+
+            return $query->result_array();
+        } else if ($userID === FALSE) {
+            $this->db->select('*');
+            $this->db->from('bookings');
+            $this->db->join('clients', 'bookings.userID = clients.userID');
+            $query = $this->db->get();
+
+            return $query->result_array();
+        }
+
+        $this->db->select('*');
+        $this->db->from('bookings');
+        $this->db->join('clients', 'bookings.userID = clients.userID');
+        $this->db->join('sessions', 'bookings.sessionID = sessions.sessionID');
+        $this->db->where('bookings.sessionID', $sessionID);
+        $this->db->where('bookings.userID', $userID);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
     public function set_session($data) {
         $this->db->insert('sessions', $data);
         $sessionID = $this->db->insert_id();
@@ -48,10 +77,11 @@ class Courses_Model extends CI_Model {
         $this->db->insert('sessionplans', $planData);
         return true;
     }
-    
+
     public function delete_session($sessionID) {
         $this->db->delete('sessions', array('sessionID' => $sessionID));
         $this->db->delete('sessionplans', array('sessionID' => $sessionID));
         $this->db->delete('sessionplanactivitys', array('sessionID' => $sessionID));
     }
+
 }

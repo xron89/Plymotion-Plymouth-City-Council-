@@ -43,7 +43,6 @@
             $attributes = array('id' => 'contactForm', 'class' => 'form-horizontal', 'role' => 'form');
             echo form_open('admin/viewContact', $attributes);
             foreach ($contacts as $contact):
-                
                 ?>
                 <tr>
                     <td><a href="<?php echo site_url('admin/userProfile/' . $contact['userID']) ?>"><?php echo $contact['firstName'] . " " . $contact['lastName'] ?></a></td>
@@ -51,7 +50,6 @@
             <?php endforeach; ?>
             </form>
         <?php } else { ?>
-            <td></td>
             <td>No new contacts</td>
         <?php } ?>
     </table>

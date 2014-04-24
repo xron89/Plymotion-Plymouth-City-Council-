@@ -27,19 +27,27 @@ class Courses extends CI_Controller {
         }
     }
 
-    public function venueManagment() {
+    public function venueManagment($error = null) {
         $data['title'] = 'Venue Managment';
         $data['venues'] = $this->venues_model->get_venues();
-
+        
+        if ($error != null) {
+            $data['errorMessage'] = $error;
+        }
+        
         $this->index($data, 'venue_managment');
     }
 
-    public function sessionManagment($status = "active") {
+    public function sessionManagment($status = "active", $error = null) {
         $data['title'] = 'Session Managment';
         $data['sessions'] = $this->courses_model->get_sessions($status);
         $data['venues'] = $this->venues_model->get_venues();
         $data['instructors'] = $this->instructors_model->get_instructors();
 
+        if ($error != null) {
+            $data['errorMessage'] = $error;
+        }
+        
         $this->index($data, 'session_managment');
     }
 
@@ -74,12 +82,10 @@ class Courses extends CI_Controller {
     public function manageVenues() {
         $action = $this->input->post('action');
         $selected = $this->input->post('selected');
-        $data['title'] = 'Venue Managment';
-        $data['venues'] = $this->venues_model->get_venues();
 
         if ($selected == null) {
-            $data['errorMessage'] = "Please select one entry or use the bulk delete option.";
-            $this->index($data, 'venue_managment');
+            $error = "Please select one entry or use the bulk delete option.";
+            $this->venueManagment($error);
         } else {
             $venueID = $selected[0];
 
@@ -141,16 +147,15 @@ class Courses extends CI_Controller {
 
         if (sizeof($selected) > 1) {
             $data['errorMessage'] = "Please select one entry or use the bulk delete option.";
-            $this->venueProfile($this->input->post('venueID'), $data);
+            $this->venueProfile($venueID, $data);
         } else {
             $locationID = $selected[0];
             $this->venues_model->delete_venueLocation($locationID);
-            $this->venueProfile($this->input->post('venueID'), null);
+            $this->venueProfile($venueID, null);
         }
     }
 
     public function newSession() {
-        $datestring = '%d/%m/%Y';
         $date = strtotime($this->input->post('date'));
         $start = strtotime($this->input->post('start'));
         $end = strtotime($this->input->post('end'));
@@ -158,7 +163,7 @@ class Courses extends CI_Controller {
             $date = date("m-d-Y");
             $start = date("H:i:s");
             $end = date("H:i:s");
-        } else { 
+        } else {
             $date = date("Y-m-d", $date);
             $start = date("H:i:s", $start);
             $end = date("H:i:s", $end);
@@ -190,12 +195,39 @@ class Courses extends CI_Controller {
         }
     }
 
+    public function manageSessions() {
+        $action = $this->input->post('action');
+        $selected = $this->input->post('selected');
+
+        if ($selected == null) {
+            $error = "Please select one entry or use the bulk delete option.";
+            $this->sessionManagment("active",$error);
+        } else {
+            $sessionID = $selected[0];
+
+            if ($action === "edit") {
+                $this->sessionProfile($sessionID);
+            } else {
+                $this->courses_model->delete_session($sessionID);
+
+                $this->sessionManagment();
+            }
+        }
+    }
+
     private function venueProfile($venueID, $data) {
         $data['title'] = 'Edit Venue';
         $data['venue'] = $this->venues_model->get_venues($venueID);
         $data['venueLocations'] = $this->venues_model->get_venueLocations($venueID);
 
         $this->index($data, 'venue_profile');
+    }
+    
+    private function sessionProfile($sessionID, $data = null) {
+        $data['title'] = 'Edit Session';
+        $data['session'] = $this->courses_model->get_sessions(null, $sessionID);
+
+        $this->index($data, 'session_profile');
     }
 
     private function authCheck() {

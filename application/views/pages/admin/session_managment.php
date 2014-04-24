@@ -54,8 +54,8 @@
     </div>
     
     <button class="btn btn-default" name="newSessionSubmit" data-toggle="modal" data-target="#newSessionModal">New Session</button>
-    <button class="btn btn-default" name="editSession" id="editVenueSubmit" >Edit Session</button>
-    <button class="btn btn-default" name="deleteSession" id="deleteVenueSubmit" >Delete Session</button>
+    <button class="btn btn-default" name="editSession" id="editSessionSubmit" >Edit Session</button>
+    <button class="btn btn-default" name="deleteSession" id="deleteSessionSubmit" >Delete Session</button>
 
     <div class="modal fade" id="newSessionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

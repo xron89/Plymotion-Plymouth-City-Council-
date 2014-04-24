@@ -52,5 +52,6 @@ class Courses_Model extends CI_Model {
     public function delete_session($sessionID) {
         $this->db->delete('sessions', array('sessionID' => $sessionID));
         $this->db->delete('sessionplans', array('sessionID' => $sessionID));
+        $this->db->delete('sessionplanactivitys', array('sessionID' => $sessionID));
     }
 }

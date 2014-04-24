@@ -9,9 +9,6 @@
                                 <a href="<?php echo site_url('admin/home') ?>"><b>Admin Home</b></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-cogs"></i> Settings</a>
-                            </li>
-                            <li>
                                 <a href="<?php echo site_url('logout') ?>"><i class="fa fa-sign-out"></i> Logout</a>
                             </li>
                         </ul>
@@ -49,9 +46,6 @@
                             </li>
                             <li>
                                 <a href="<?php echo site_url('admin/sessionManagment/active') ?>"><i class="fa fa-calendar"></i> Sessions</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-briefcase"></i> Bookings</a>
                             </li>
                         </ul>
                     </div>

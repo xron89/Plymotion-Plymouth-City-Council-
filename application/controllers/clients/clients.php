@@ -26,6 +26,34 @@ class Clients extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    public function userProfile($userID) {
+        $user = $this->clients_model->get_clients($userID);
+        $data['user'] = $user;
+
+        if ($this->session->userdata('auth') === "user") {
+            $data['title'] = 'Your Profile';
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/client/client_profile', $data);
+            $this->load->view('templates/footer');
+        } else if ($this->session->userdata('auth') === "admin") {
+            $data['title'] = $user->firstName . " " . $user->lastName . "'s Profile";
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/admin/adminAffix');
+            $this->load->view('pages/client/client_profile', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data['title'] = "Home";
+            $data['authCheck'] = "false";
+            $data['authMessage'] = "You are not authorised to view that page";
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/home', $data);
+            $this->load->view('templates/footer');
+        }
+    }
+
     public function register() {
 
         if ($this->dupeCheck($this->input->post('email'))) {
@@ -87,13 +115,13 @@ class Clients extends CI_Controller {
             $this->index($data);
         }
     }
-    
+
     public function retrieveDetails() {
         $email = $this->input->post('email');
-        
+
         $clientData = $this->clients_model->get_clients_email($email);
-        
-        if($clientData != null) {
+
+        if ($clientData != null) {
             $fullClientData = $this->clients_model->get_client_login($clientData->userID);
             $decodeRef = $this->encrypt->decode($fullClientData->reference);
             $name = $fullClientData->firstName . ' ' . $fullClientData->lastName;
@@ -101,32 +129,63 @@ class Clients extends CI_Controller {
             $data['retrieveDetails'] = 'true';
             $data['retMessage'] = 'Your details will be sent out to you by email';
             $this->index($data);
-        }
-        else {
+        } else {
             $data['retrieveDetails'] = 'false';
             $data['retMessage'] = 'This email was not found';
             $this->index($data);
         }
     }
-    
+
     public function resendEmail() {
         $email = $this->input->post('email');
-        
+
         $clientData = $this->clients_model->get_clients_email($email);
 
-        if($clientData != null) {
+        if ($clientData != null) {
             $fullClientData = $this->clients_model->get_client_login($clientData->userID);
             $decodeRef = $this->encrypt->decode($fullClientData->reference);
             $this->registerEmail($email, $decodeRef, $fullClientData->userID);
             $data['resendEmail'] = 'true';
             $data['reMessage'] = 'Your activation email has been resent to you';
             $this->index($data);
-        }
-        else {
+        } else {
             $data['resendEmail'] = 'false';
             $data['reMessage'] = 'This email was not found';
             $this->index($data);
         }
+    }
+
+    public function editUserBasic() {
+        $userID = $this->input->post('userID');
+        $data = array(
+            'firstName' => $this->input->post('firstname'),
+            'lastName' => $this->input->post('surname'),
+            'address' => $this->input->post('address'),
+            'dateOfBirth' => date('Y-m-d', strtotime($this->input->post('dob'))),
+            'phoneNumber' => $this->input->post('phone'),
+            'mobileNumber' => $this->input->post('mobile'),
+            'email' => $this->input->post('email')
+        );
+        
+        $this->clients_model->update_details($data, $userID);
+        
+        $this->userProfile($userID);
+    }
+
+    public function editUserAdditional() {
+        $userID = $this->input->post('userID');
+        $data = array(
+            'ecName' => $this->input->post('ecname'),
+            'ecRelationship' => $this->input->post('ecrelation'),
+            'ecMobileNo' => $this->input->post('ecmobile'),
+            'ecPhoneNo' => $this->input->post('ecphone'),
+            'medicalConditions' => $this->input->post('medCond'),
+            'medicalDetails' => $this->input->post('medDetails')
+        );
+        
+        $this->clients_model->update_additional_details($data, $userID);
+        
+        $this->userProfile($userID);
     }
 
     private function dupeCheck($email) {
@@ -166,4 +225,5 @@ class Clients extends CI_Controller {
 
         $this->email->send();
     }
+
 }

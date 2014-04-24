@@ -1,15 +1,11 @@
 <div id="content" class="container">
     <div class="row">
         <div class="col-md-2 side-bar">
-            <div data-spy="affix" data-offset-top="200" data-offset-bottom="10">
                 <div class="affixNav">
                     <div class="affixNavContent">
                         <ul class="nav bs-sidenav">
                             <li>
                                 <a href="<?php echo site_url('admin/home') ?>"><b>Admin Home</b></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-cogs"></i> Settings</a>
                             </li>
                             <li>
                                 <a href="<?php echo site_url('logout') ?>"><i class="fa fa-sign-out"></i> Logout</a>
@@ -50,9 +46,6 @@
                             <li>
                                 <a href="<?php echo site_url('admin/sessionManagment/active') ?>"><i class="fa fa-calendar"></i> Sessions</a>
                             </li>
-                            <li>
-                                <a href="#"><i class="fa fa-briefcase"></i> Bookings</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -70,7 +63,6 @@
                             </li>
                         </ul>
                     </div>
-                </div>
             </div>
         </div>
 

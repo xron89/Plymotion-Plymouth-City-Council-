@@ -86,6 +86,14 @@ $(document).ready(function() {
           $("#venuelocation").html(data);
         });
     });
+    
+    $('#editDetailsSubmit').click(function() {
+        $('#editDetailsForm').submit();
+    });
+    
+    $('#editAdditionalSubmit').click(function() {
+        $('#editAdditionalForm').submit();
+    });
 });
 
 

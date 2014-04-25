@@ -117,6 +117,16 @@ class Courses_Model extends CI_Model {
 
         return $query->row();
     }
+    
+    public function get_clientBookings($userID) {
+        $this->db->select('*');
+        $this->db->from('bookings');
+        $this->db->join('sessions', 'bookings.sessionID = sessions.sessionID');
+        $this->db->where('bookings.userID', $userID);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
 
     public function set_session($data) {
         $this->db->insert('sessions', $data);
@@ -125,7 +135,7 @@ class Courses_Model extends CI_Model {
             'sessionID' => $sessionID
         );
         $this->db->insert('sessionplans', $planData);
-        return true;
+        return $sessionID;
     }
     
     public function update_session($data, $sessionID) {        
@@ -148,5 +158,16 @@ class Courses_Model extends CI_Model {
     public function delete_booking($userID, $sessionID) {
         $this->db->delete('bookings', array('sessionID' => $sessionID, 'userID' => $userID));
         return true;
+    }
+    
+    public function sessionSearch($firstdate, $seconddate) {
+        $this->db->select('*');
+        $this->db->from('sessions');
+        $this->db->join('venuelocations', 'sessions.locationID = venuelocations.locationID');
+        $this->db->where('date >=', $firstdate);
+        $this->db->where('date <=', $seconddate);
+        $query = $this->db->get();
+        
+        return $query->result_array();
     }
 }

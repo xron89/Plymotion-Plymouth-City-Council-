@@ -13,8 +13,14 @@ class Clients extends CI_Controller {
         );
 
         $this->load->model('clients_model');
-        $this->load->library('encrypt');
+        $this->load->model('news_model');
+        $this->load->model('courses_model');
+        $this->load->model('venues_model');
+        $this->load->model('instructors_model');
+        
         $this->load->helper('string');
+        
+        $this->load->library('encrypt');
         $this->load->library('email', $emailConfig);
     }
 
@@ -38,6 +44,11 @@ class Clients extends CI_Controller {
             $this->load->view('templates/footer');
         } else if ($this->session->userdata('auth') === "admin") {
             $data['title'] = $user->firstName . " " . $user->lastName . "'s Profile";
+            $bookings = $this->courses_model->get_clientBookings($userID);
+            $data['bookings'] = $bookings;
+            $data['locations'] = $this->venues_model->get_locations();
+            $data['venues'] = $this->venues_model->get_venues();
+            $data['instructors'] = $this->instructors_model->get_instructors();
 
             $this->load->view('templates/header', $data);
             $this->load->view('pages/admin/adminAffix');
@@ -52,6 +63,15 @@ class Clients extends CI_Controller {
             $this->load->view('pages/home', $data);
             $this->load->view('templates/footer');
         }
+    }
+
+    public function viewNews() {
+        $data['title'] = 'News';
+        $data['news'] = $this->news_model->get_newsTop3();
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/news', $data);
+        $this->load->view('templates/footer');
     }
 
     public function register() {
@@ -166,9 +186,9 @@ class Clients extends CI_Controller {
             'mobileNumber' => $this->input->post('mobile'),
             'email' => $this->input->post('email')
         );
-        
+
         $this->clients_model->update_details($data, $userID);
-        
+
         $this->userProfile($userID);
     }
 
@@ -183,14 +203,65 @@ class Clients extends CI_Controller {
             'medicalConditions' => $this->input->post('medCond'),
             'medicalDetails' => $this->input->post('medDetails')
         );
-        
-        if($user->newClient === "1") {
+
+        if ($user->newClient === "1") {
             $this->clients_model->update_additional_details($data, $userID, TRUE);
         } else {
             $this->clients_model->update_additional_details($data, $userID);
         }
-            
+
         $this->userProfile($userID);
+    }
+    
+    public function addBooking() {
+        $bookingData = array(
+            'sessionID' => $this->input->post('optionsRadio'),
+            'userID' => $this->input->post('userID')
+        );
+
+        $this->courses_model->set_booking($bookingData);
+        
+        $this->userProfile($this->input->post('userID'));
+    }
+    
+    public function newSession() {
+        $date = strtotime($this->input->post('date'));
+        $start = strtotime($this->input->post('start'));
+        $end = strtotime($this->input->post('end'));
+        if ($date === false && $start === false && $end === false) {
+            $date = date("m-d-Y");
+            $start = date("H:i:s");
+            $end = date("H:i:s");
+        } else {
+            $date = date("Y-m-d", $date);
+            $start = date("H:i:s", $start);
+            $end = date("H:i:s", $end);
+        }
+
+        $sessionData = array(
+            'locationID' => $this->input->post('venuelocation'),
+            'level' => $this->input->post('level'),
+            'date' => $date,
+            'startTime' => $start,
+            'endTime' => $end,
+            'instructorID' => $this->input->post('instructor'),
+            'assistantID' => $this->input->post('assistant')
+        );
+
+        $sessionID = $this->courses_model->set_session($sessionData);
+
+        $this->addBooking2($sessionID, $this->input->post('userID'));
+        
+        $this->userProfile($this->input->post('userID'));
+    }
+    
+    private function addBooking2($sessionID, $userID) {
+        $bookingData = array(
+            'sessionID' => $sessionID,
+            'userID' => $userID
+        );
+
+        $this->courses_model->set_booking($bookingData);
     }
 
     private function dupeCheck($email) {

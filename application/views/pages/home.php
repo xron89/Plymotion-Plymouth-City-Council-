@@ -1,49 +1,45 @@
 <?php if(isset($register)) { ?>
 <script>
-    $register = "<?php echo $register ?>";
-    $regError = "<?php if(isset($regError)){echo $regMessage;} ?>";
-    if ($register === 'true') {
-        alert($regMessage);
-    } else {
-        alert($regMessage);
-    }
+    var register = "<?php echo $register ?>";
+    var regMessage = "<?php echo $regMessage ?>";
+    alert(regMessage);
 </script>
 <?php } elseif (isset($activate)) { ?>
 <script>
-    $activated = "<?php echo $activate ?>";
-    $actMessage = "<?php echo $actMessage ?>";
-    if ($activated === 'true') {
-        alert($actMessage);
+    var activated = "<?php echo $activate ?>";
+    var actMessage = "<?php echo $actMessage ?>";
+    if (activated === 'true') {
+        alert(actMessage);
     } else {
-        alert($actMessage);
+        alert(actMessage);
     }
 </script>
 <?php } elseif (isset($retrieveDetails)) { ?>
 <script>
-    $retrieveDetails = "<?php echo $retrieveDetails ?>";
-    $retMessage = "<?php echo $retMessage ?>";
+    var retrieveDetails = "<?php echo $retrieveDetails ?>";
+    var retMessage = "<?php echo $retMessage ?>";
     if ($retrieveDetails === 'true') {
-        alert($retMessage);
+        alert(retMessage);
     } else {
-        alert($retMessage);
+        alert(retMessage);
     }
 </script>
 <?php } elseif (isset($resendEmail)) { ?>
 <script>
-    $resendEmail = "<?php echo $resendEmail ?>";
-    $reMessage = "<?php echo $reMessage ?>";
-    if ($resendEmail === 'true') {
-        alert($reMessage);
+    var resendEmail = "<?php echo $resendEmail ?>";
+    var reMessage = "<?php echo $reMessage ?>";
+    if (resendEmail === 'true') {
+        alert(reMessage);
     } else {
-        alert($reMessage);
+        alert(reMessage);
     }
 </script>
 <?php } elseif (isset($authCheck)) { ?>
 <script>
-    $authCheck = "<?php echo $authCheck ?>";
-    $authMessage = "<?php echo $authMessage ?>";
-    if ($authCheck === 'false') {
-        alert($authMessage);
+    var authCheck = "<?php echo $authCheck ?>";
+    var authMessage = "<?php echo $authMessage ?>";
+    if (authCheck === 'false') {
+        alert(authMessage);
     }
 </script>
 <?php } ?>

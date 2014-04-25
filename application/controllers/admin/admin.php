@@ -10,6 +10,7 @@ class Admin extends CI_Controller {
         $this->load->model('clients_model');
         $this->load->model('courses_model');
         $this->load->model('venues_model');
+        $this->load->model('news_model');
     }
 
     public function index($data, $page) {
@@ -37,6 +38,17 @@ class Admin extends CI_Controller {
         $data['venueCount'] = $this->venues_model->count_venues();
 
         $this->index($data, 'admin_home');
+    }
+    
+    public function newsManagment() {
+        $data['title'] = 'News Managment';
+        $data['news'] = $this->news_model->get_news();
+        
+        $this->index($data, 'news_managment');
+    }
+    
+    public function addNews() {
+        
     }
 
     private function authCheck() {

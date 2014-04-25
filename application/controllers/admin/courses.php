@@ -195,7 +195,7 @@ class Courses extends CI_Controller {
 
         $this->sessionManagment();
     }
-    
+
     public function editSession() {
         $date = strtotime($this->input->post('date'));
         $start = strtotime($this->input->post('start'));
@@ -274,6 +274,41 @@ class Courses extends CI_Controller {
             echo "</table>";
         } else {
             echo "No Clients Found";
+        }
+    }
+
+    public function sessionSearch($firstdate, $seconddate) {
+        $firstdate = strtotime($firstdate);
+        $seconddate = strtotime($seconddate);
+
+        $firstdate = date("Y-m-d", $firstdate);
+        $seconddate = date("Y-m-d", $seconddate);
+
+        $foundSessions = $this->courses_model->sessionSearch($firstdate, $seconddate);
+
+        if (sizeof($foundSessions) > 0) {
+            echo '<table class="table">';
+            echo "<tr>";
+            echo "<th></th>";
+            echo "<th>Session No.</th>";
+            echo "<th>Location</th>";
+            echo "<th>Date.</th>";
+            echo "<th>Start Time.</th>";
+            echo "<th>End Time.</th>";
+            echo "</tr>";
+            foreach ($foundSessions as $session) {
+                echo "<tr>";
+                echo '<td><input type="radio" name="optionsRadio" id="optionsRadio' . $session['sessionID'] . '" value="' . $session['sessionID'] . '"></td>';
+                echo "<td>" . $session['sessionID'] . "</td>";
+                echo "<td>" . $session['name'] . "</td>";
+                echo "<td>" . $session['date'] . "</td>";
+                echo "<td>" . $session['startTime'] . "</td>";
+                echo "<td>" . $session['endTime'] . "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "No Sessions Found </br></br>";
         }
     }
 

@@ -28,7 +28,7 @@
             <table class="table">
                 <tr>
                     <th><input id="checkAll" type="checkbox" /></th>
-                    <th>Session ID</th>
+                    <th>Session No.</th>
                     <th>Location</th>
                     <th>Level</th>
                     <th>Date</th>

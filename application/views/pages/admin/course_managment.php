@@ -10,32 +10,37 @@
         ?>
         <div class="tableOptions">
             <div class="bulkOptions">
-                <div class="row">
-                    <div class="col-xs-2">
-                            <select class="form-control" id="bulkOptions">
-                                <option >Bulk Options</option>
-                                <option selected value="delete">Delete</option>
-                            </select>              
-                    </div>
-                </div>
+                <div class="dropdown">
+                    <button class="btn btn-primary" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        Course Status
+                        <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url('admin/courseManagment/active') ?>">Active</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url('admin/courseManagment/finished') ?>">Finished</a></li>
+                    </ul>
+                </div>       
             </div>
         </div>
 
         <div class="tableContent">
             <table class="table">
                 <tr>
-                    <th><input id="checkAll" type="checkbox" /></th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
+                    <th></th>
+                    <th>Course No.</th>
+                    <th>Venue Name</th>
+                    <th>Start Date</th>
+                    <th>End date</th>
                 </tr>
 
-                <?php foreach ($venues as $venue_item): ?>
+                <?php foreach ($courses as $course): ?>
                     <tr>
-                        <td><input type="checkbox" name="selected[]" value="<?php echo $venue_item['venueID'] ?>" /></td>
-                        <td><?php echo $venue_item['name'] ?></td>
-                        <td><?php if($venue_item['phone'] == null) { echo "No Number"; } else { echo $venue_item['phone']; } ?></td>
-                        <td><?php if($venue_item['email'] == null) { echo "No Email"; } else { echo $venue_item['email']; } ?></td>
+                        <td><input type="checkbox" name="selected[]" value="<?php echo $course['courseID'] ?>" /></td>
+                        <td><?php echo $course['courseID'] ?></td>
+                        <td><?php echo $course['name'] ?></td>
+                        <td><?php echo $course['startDate'] ?></td>
+                        <td><?php echo $course['endDate'] ?></td>
                     </tr>
                 <?php endforeach ?>
             </table>
@@ -44,9 +49,9 @@
         </form>
     </div>
     
-    <button class="btn btn-default" name="newVenueSubmit" data-toggle="modal" data-target="#newVenueModal">New Venue</button>
-    <button class="btn btn-default" name="editVenue" id="editVenueSubmit" >Edit Venue</button>
-    <button class="btn btn-default" name="deleteVenue" id="deleteVenueSubmit" >Delete Venue</button>
+    <button class="btn btn-default" name="newVenueSubmit" data-toggle="modal" data-target="#newVenueModal">New Course</button>
+    <button class="btn btn-default" name="editVenue" id="editVenueSubmit" >Edit Course</button>
+    <button class="btn btn-default" name="deleteVenue" id="deleteVenueSubmit" >Delete Course</button>
 
     <div class="modal fade" id="newVenueModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

@@ -38,6 +38,40 @@ class Courses_Model extends CI_Model {
 
         return $query->row();
     }
+    
+    public function get_courses($status, $courseID = FALSE) {
+        $currentDate = date("Y-m-d");
+
+        if ($courseID === FALSE) {
+            if ($status == "active") {
+                $this->db->select('*');
+                $this->db->from('courses');
+                $this->db->join('venues', 'courses.venueID = venues.venueID');
+                $this->db->where('courses.endDate >=', $currentDate);
+                $this->db->order_by("startDate", "asc");
+                $query = $this->db->get();
+
+                return $query->result_array();
+            } else {
+                $this->db->select('*');
+                $this->db->from('courses');
+                $this->db->join('venues', 'courses.venueID = venues.venueID');
+                $this->db->where('courses.endDate <', $currentDate);
+                $this->db->order_by("startDate", "asc");
+                $query = $this->db->get();
+
+                return $query->result_array();
+            }
+        }
+
+        $this->db->select('*');
+        $this->db->from('courses');
+        $this->db->join('venues', 'courses.venueID = venues.venueID');
+        $this->db->where('courses.venueID', $courseID);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
 
     public function get_bookings($sessionID = FALSE, $userID = FALSE) {
 

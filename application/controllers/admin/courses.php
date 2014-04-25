@@ -50,6 +50,17 @@ class Courses extends CI_Controller {
         
         $this->index($data, 'session_managment');
     }
+    
+    public function courseManagment($status = "active", $error = null) {
+        $data['title'] = 'Course Managment';
+        $data['courses'] = $this->courses_model->get_courses($status);
+        
+        if ($error != null) {
+            $data['errorMessage'] = $error;
+        }
+        
+        $this->index($data, 'course_managment');
+    }
 
     public function newVenue() {
         $venueData = array(

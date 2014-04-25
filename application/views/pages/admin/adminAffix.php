@@ -41,7 +41,7 @@
                                 <a href="<?php echo site_url('admin/venueManagment') ?>"><i class="fa fa-leaf"></i> Venues</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-book"></i> Courses</a>
+                                <a href="<?php echo site_url('admin/courseManagment/active') ?>"><i class="fa fa-book"></i> Courses</a>
                             </li>
                             <li>
                                 <a href="<?php echo site_url('admin/sessionManagment/active') ?>"><i class="fa fa-calendar"></i> Sessions</a>

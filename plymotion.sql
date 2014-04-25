@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2014 at 05:22 PM
+-- Generation Time: Apr 25, 2014 at 11:30 AM
 -- Server version: 5.6.11
 -- PHP Version: 5.5.3
 
@@ -53,10 +53,23 @@ INSERT INTO `adminlogins` (`adminID`, `username`, `password`, `admin`, `instruct
 --
 
 CREATE TABLE IF NOT EXISTS `bookings` (
-  `clientID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
   `sessionID` int(11) NOT NULL,
-  PRIMARY KEY (`clientID`,`sessionID`)
+  `insuranceRead` tinyint(4) DEFAULT NULL,
+  `agreeToTraining` tinyint(4) DEFAULT NULL,
+  `bikeRoadworthy` tinyint(4) DEFAULT NULL,
+  `dateCompleted` date DEFAULT NULL,
+  PRIMARY KEY (`userID`,`sessionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`userID`, `sessionID`, `insuranceRead`, `agreeToTraining`, `bikeRoadworthy`, `dateCompleted`) VALUES
+(21, 2, NULL, NULL, NULL, NULL),
+(21, 3, NULL, NULL, NULL, NULL),
+(21, 5, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -76,7 +89,8 @@ CREATE TABLE IF NOT EXISTS `clientlogins` (
 --
 
 INSERT INTO `clientlogins` (`userID`, `reference`, `verified`) VALUES
-(21, 'BXLA7elnTvmYF2nNnljBDEZ20EhcpK/qWCNfJZsJF5VvEqVw+eCSSGT+OzIA6vLMI3e/v0vHRa7XlvEnwBHxkg==', 1);
+(21, 'BXLA7elnTvmYF2nNnljBDEZ20EhcpK/qWCNfJZsJF5VvEqVw+eCSSGT+OzIA6vLMI3e/v0vHRa7XlvEnwBHxkg==', 1),
+(30, '0w54SLZ4ox3w2AaYTkaVmlhLBfMdXrFRVf3bIaCA+ESEMsMmHY8LDFCwsWByQrGBOQVAz6HH4hB9Bl0/dfrYag==', 0);
 
 -- --------------------------------------------------------
 
@@ -95,14 +109,18 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `email` varchar(100) COLLATE latin1_general_ci NOT NULL,
   `newClient` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `clients`
 --
 
 INSERT INTO `clients` (`userID`, `firstName`, `lastName`, `address`, `dateOfBirth`, `phoneNumber`, `mobileNumber`, `email`, `newClient`) VALUES
-(21, 'Chris', 'Pratt', '23 Landbroke Lane', '1985-11-19', '01395515520', '09465452103', 'chrispratt1985@gmail.com', 1);
+(21, 'Chris', 'Pratt', '23 Landbroke Lane, Plymouth, PL1 1DZ', '1985-11-19', '01395515520', '09465452103', 'chrispratt1985@gmail.com', 0),
+(22, 'Jake', 'White', '22 Jake Lane, Suton', '1945-12-19', '01234 215625', '09785425632', 'jake@gmail.com', 1),
+(23, 'Bob', 'Smith', '45 Trint Land, London', '1956-05-06', '01252 459865', '09654235568', 'bob.smith@gmail.com', 1),
+(24, 'Jay', 'Johns', '46 Wake Road, Plymouth', '1996-05-08', '01325 164598', '09456 123568', 'J.J@gmail.com', 1),
+(30, 'Lee', 'Smith', '6 Branway, Plymouth', '1996-05-08', '01395 515520', '09785425632', 'lee.smith@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -111,19 +129,26 @@ INSERT INTO `clients` (`userID`, `firstName`, `lastName`, `address`, `dateOfBirt
 --
 
 CREATE TABLE IF NOT EXISTS `clientsinformation` (
-  `clientID` int(11) NOT NULL,
-  `ecName` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `ecRelationship` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `userID` int(11) NOT NULL,
+  `ecName` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
+  `ecRelationship` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
   `ecMobileNo` varchar(60) COLLATE latin1_general_ci DEFAULT NULL,
   `ecPhoneNo` varchar(60) COLLATE latin1_general_ci DEFAULT NULL,
-  `medicalConditions` tinyint(1) NOT NULL,
+  `medicalConditions` tinyint(1) DEFAULT NULL,
   `medicalDetails` varchar(600) COLLATE latin1_general_ci DEFAULT NULL,
-  `insuranceCheckl` tinyint(1) NOT NULL,
-  `agreeToTraining` tinyint(1) NOT NULL,
-  `bikeRoadworthy` tinyint(1) NOT NULL,
-  `dateCompleted` date NOT NULL,
-  PRIMARY KEY (`clientID`)
+  PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+--
+-- Dumping data for table `clientsinformation`
+--
+
+INSERT INTO `clientsinformation` (`userID`, `ecName`, `ecRelationship`, `ecMobileNo`, `ecPhoneNo`, `medicalConditions`, `medicalDetails`) VALUES
+(21, 'Tim Pratt', 'Family Member', '09456894856', '01365452215', 1, 'Bad Knee'),
+(22, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, NULL, NULL, NULL, NULL, NULL, NULL),
+(30, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -137,18 +162,23 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `altVenuID` int(11) NOT NULL,
   `startDate` date NOT NULL,
   `endDate` date NOT NULL,
-  `noOfTrainees` int(11) NOT NULL,
-  `noOfSessions` int(11) NOT NULL,
   `riskAsses` tinyint(1) NOT NULL,
   `insurance` tinyint(1) NOT NULL,
   `crb` tinyint(1) NOT NULL,
   `instructPackSent` tinyint(1) NOT NULL,
-  `dateSent` date NOT NULL,
-  `notes` varchar(800) COLLATE latin1_general_ci NOT NULL,
-  `completedBy` varchar(60) COLLATE latin1_general_ci NOT NULL,
-  `completedDate` date NOT NULL,
+  `dateSent` date DEFAULT NULL,
+  `notes` varchar(800) COLLATE latin1_general_ci DEFAULT NULL,
+  `completedBy` varchar(60) COLLATE latin1_general_ci DEFAULT NULL,
+  `completedDate` date DEFAULT NULL,
   PRIMARY KEY (`courseID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`courseID`, `venueID`, `altVenuID`, `startDate`, `endDate`, `riskAsses`, `insurance`, `crb`, `instructPackSent`, `dateSent`, `notes`, `completedBy`, `completedDate`) VALUES
+(1, 1, 2, '2014-04-25', '2014-06-19', 0, 0, 0, 0, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -173,7 +203,9 @@ CREATE TABLE IF NOT EXISTS `instructors` (
 --
 
 INSERT INTO `instructors` (`instructorID`, `name`, `address`, `postCode`, `phoneNo`, `mobileNo`, `email`, `website`) VALUES
-(4, 'Test', 'test', 'tttt', '1165156', '45454', 'fgfd@df.com', 'fsdfs.com');
+(4, 'John Smith', '29 Albert Road, Plymouth', 'PL1 4BN', '01395 456325', '09845 236598', 'John.S@gmail.com', NULL),
+(5, 'Jake Wright', '56 Albert Square, Plymouth', 'PL2 4BN', '01254 965325', NULL, 'J.W@gmail.com', NULL),
+(6, 'Bob Honson', '34 Jake Land, Plymouth', 'PL3 3DZ', NULL, '09854 153256', 'Bob>b@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -213,6 +245,44 @@ CREATE TABLE IF NOT EXISTS `instructorsinformation` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `news`
+--
+
+CREATE TABLE IF NOT EXISTS `news` (
+  `newsID` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `content` longtext COLLATE latin1_general_ci NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`newsID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`newsID`, `title`, `content`, `date`) VALUES
+(1, 'Plymotion on Your Doorstep', '<p>How often have you considered how you get about the city and whether there might be a better, cheaper or healthier way?</p>\r\n\r\n<p>Through Plymotion we are offering you free advice and information about how you can travel around the city – all from the comfort of your own home! A team of Plymotion travel advisors will be on hand to chat with you face-to-face about your travel needs and offer you incentives to try different modes. These alternatives might be more convenient and could help you save time and money. They might even encourage you to explore new places and become fitter!</p>', '2014-04-25'),
+(2, 'Laira Rail Bridge Pedestrian and Cycle Scheme', '<p>The old Laira Rail Bridge is going to be restored and converted into a new pedestrian and cycle path crossing the River Plym.</p>\r\n<p>The new path will link into existing walking and cycling paths, including Route 27 of the National Cycle Network and improve access to the Laira Heritage Trail.</p>', '2014-04-21'),
+(3, 'WAYFINDING', '<p>It will soon be easier to navigate your way around the city centre and waterfront thanks to a network of signs and information boards being updated.</p>\r\n\r\n<p>Part of our Plymotion project, which aims to make it easier for people to get around Plymouth by bus, bike or on foot, the Wayfinding project will provide functional, attractive and engaging signage for pedestrians and cyclists in the city.</p>', '2014-04-01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessionplanactivitys`
+--
+
+CREATE TABLE IF NOT EXISTS `sessionplanactivitys` (
+  `activityID` int(11) NOT NULL AUTO_INCREMENT,
+  `sessionID` int(11) NOT NULL,
+  `timing` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
+  `activity` varchar(400) COLLATE latin1_general_ci DEFAULT NULL,
+  `skills` varchar(400) COLLATE latin1_general_ci DEFAULT NULL,
+  PRIMARY KEY (`activityID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sessionplans`
 --
 
@@ -236,6 +306,7 @@ CREATE TABLE IF NOT EXISTS `sessionplans` (
 
 INSERT INTO `sessionplans` (`sessionID`, `clientNeeds`, `outcomes`, `revRiskAsses`, `checkEquip`, `docReady`, `helmAndCloth`, `bikeCheck`, `safetyBrief`, `notes`) VALUES
 (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -246,6 +317,7 @@ INSERT INTO `sessionplans` (`sessionID`, `clientNeeds`, `outcomes`, `revRiskAsse
 
 CREATE TABLE IF NOT EXISTS `sessions` (
   `sessionID` int(11) NOT NULL AUTO_INCREMENT,
+  `courseID` int(11) NOT NULL,
   `locationID` int(11) NOT NULL,
   `level` int(11) NOT NULL,
   `date` date NOT NULL,
@@ -260,9 +332,10 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 -- Dumping data for table `sessions`
 --
 
-INSERT INTO `sessions` (`sessionID`, `locationID`, `level`, `date`, `startTime`, `endTime`, `instructorID`, `assistantID`) VALUES
-(2, 2, 2, '2014-04-30', '13:25:00', '16:00:00', NULL, NULL),
-(5, 4, 2, '2014-11-19', '13:12:00', '14:12:00', 4, 0);
+INSERT INTO `sessions` (`sessionID`, `courseID`, `locationID`, `level`, `date`, `startTime`, `endTime`, `instructorID`, `assistantID`) VALUES
+(2, 1, 2, 2, '2014-04-30', '13:25:00', '16:00:00', 4, 0),
+(3, 1, 4, 3, '2014-04-25', '13:12:00', '14:25:00', 4, 0),
+(5, 1, 2, 1, '2014-06-19', '13:12:00', '13:12:00', 0, 0);
 
 -- --------------------------------------------------------
 

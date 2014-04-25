@@ -1,4 +1,5 @@
-<div class="col-md-10"> 
+<div class="col-md-10">
+    <p>Click the button below to create a new admin account</p><br>
     <button class="btn btn-default" name="register" data-toggle="modal" data-target="#adminRegModal">New Admin</button>
 
     <div class="modal fade" id="adminRegModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -6,7 +7,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">New Admin</h4>
+                    <h4 class="btn sucess-btn modal-title">New Admin</h4>
                 </div>
                 <div class="modal-body">
                     <div id="form">

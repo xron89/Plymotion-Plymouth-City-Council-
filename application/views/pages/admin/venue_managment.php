@@ -8,18 +8,6 @@
             $attributes = array('id' => 'venueForm', 'role' => 'form');
             echo form_open('admin/manageVenues', $attributes);
         ?>
-        <div class="tableOptions">
-            <div class="bulkOptions">
-                <div class="row">
-                    <div class="col-xs-2">
-                            <select class="form-control" id="bulkOptions">
-                                <option >Bulk Options</option>
-                                <option selected value="delete">Delete</option>
-                            </select>              
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="tableContent">
             <table class="table">

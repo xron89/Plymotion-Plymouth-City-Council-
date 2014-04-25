@@ -61,12 +61,13 @@
             </p>
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12">
-            <?php if ($this->session->userdata('logged_in') === true && $this->session->userdata('auth') === null) { ?>
+            <?php //echo $this->session->userdata('logged_in'); //echo $this->session->userdata('auth'); ?>
+            <?php if ($this->session->userdata('logged_in') === TRUE && $this->session->userdata('auth') === "user") { ?>
             <h2>Your Control Panel</h2>
-            Hello <?php echo $this->session->userdata('name'); ?> <br/>
-            <a href="#">View Bookings</a>
-            <a href="#">Manage Account</a>
-            <a href="logout">Logout</a>
+            <h4>Hello <?php echo $this->session->userdata('name'); ?></h4>
+            <a class="btn btn-default" href="#">View Bookings</a><br/><br/>
+            <a class="btn btn-default" href="<?php echo site_url('myProfile/' . $this->session->userdata('userID')) ?>">Manage Profile</a><br/><br/>
+            <a class="btn btn-default" href="logout">Logout</a>
             <?php } else { ?>
                 <h2>Login</h2>
                 <div class="message">

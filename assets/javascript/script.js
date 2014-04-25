@@ -64,6 +64,36 @@ $(document).ready(function() {
     $('#deleteVenueLocation').click(function() {
         $('#deleteLocationForm').submit();
     });
+    
+    $('#newSessionSubmit').click(function() {
+        $('#newSessionForm').submit();
+    });
+
+    $('#editSessionSubmit').click(function() {
+        $('#action').val("edit");
+        $('#sessionForm').submit();
+    });
+
+    $('#deleteSessionSubmit').click(function() {
+        $('#action').val("delete");
+        $('#sessionForm').submit();
+    });
+    
+    $('#venue').change(function() {
+        var venueID = $('#venue').val();
+        $.get("/plymotion/index.php/admin/venueLocations/" + venueID, function (data) {
+          // update the textarea with the time
+          $("#venuelocation").html(data);
+        });
+    });
+    
+    $('#editDetailsSubmit').click(function() {
+        $('#editDetailsForm').submit();
+    });
+    
+    $('#editAdditionalSubmit').click(function() {
+        $('#editAdditionalForm').submit();
+    });
 });
 
 

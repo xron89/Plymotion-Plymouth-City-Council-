@@ -31,6 +31,10 @@ class Venues_Model extends CI_Model {
         return $query->result_array();
     }
     
+    public function count_venues() {
+        return $this->db->count_all('venues');
+    }
+    
     public function set_venues($data) {
         $this->db->insert('venues', $data);
         return $this->db->insert_id();

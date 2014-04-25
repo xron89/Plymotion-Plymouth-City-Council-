@@ -94,6 +94,26 @@ $(document).ready(function() {
     $('#editAdditionalSubmit').click(function() {
         $('#editAdditionalForm').submit();
     });
+    
+    $('#clientSearchSubmit').click(function() {
+        var name = $('#clientSearch').val();
+        $.get("/plymotion/index.php/admin/clientSearch/" + name, function (data) {
+          // update the textarea with the time
+          $("#clients").html(data);
+        });
+    });
+    
+    $('#addClientBookingSubmit').click(function() {
+        $('#addClientBookingForm').submit();
+    });
+    
+    $('#deleteClientBookingSubmit').click(function() {
+        $('#editBookingsForm').submit();
+    });
+    
+    $('#editSessionSubmit').click(function() {
+        $('#editSessionForm').submit();
+    });
 });
 
 

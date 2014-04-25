@@ -91,7 +91,7 @@ $end = date("H:i:s", $end);
                                     </tr>
                                     <?php
                                     $attributes = array('id' => 'editBookingsForm', 'class' => 'form-horizontal', 'role' => 'form');
-                                    echo form_open('admin/editBooking', $attributes);
+                                    echo form_open('admin/manageBookings', $attributes);
                                     foreach ($bookings as $booking) {
                                         ?>
                                         <tr>
@@ -100,6 +100,7 @@ $end = date("H:i:s", $end);
                                         </tr>
                                     <?php } ?>
                                     <input type="hidden" name="sessionID" value="<?php echo $session->sessionID; ?>">
+                                    <input type="hidden" name="action" value="delete">
                                     </form>
                                 </table>
                             </div>
@@ -108,13 +109,22 @@ $end = date("H:i:s", $end);
                                     <button type="button" class="glyphicon glyphicon-plus" id="addClientBooking" data-toggle="modal" data-target="#addClientBookingModal" title="Add Client"></button>
                                 </div>
                                 <div>
-                                    <button type="button" class="glyphicon glyphicon-minus" id="deleteClientBooking" title="Delete Client"></button>
+                                    <button type="button" class="glyphicon glyphicon-minus" id="deleteClientBookingSubmit" title="Delete Client"></button>
                                 </div>
                             </div>
                         </div>
 
                     <?php } else { ?>
-                        No bookings for this session
+                        <div class="row">
+                            <div class="col-md-10">
+                                No bookings for this session
+                            </div>
+                            <div class="col-md-1">
+                                <div>
+                                    <button type="button" class="glyphicon glyphicon-plus" id="addClientBooking" data-toggle="modal" data-target="#addClientBookingModal" title="Add Client"></button>
+                                </div>
+                            </div>
+                        </div>
                     <?php } ?>
                 </div>
             </div>
@@ -136,83 +146,160 @@ $end = date("H:i:s", $end);
                     echo form_open('admin/editSession', $attributes);
                     ?>
                     <div class="form-group">
-                            <label for="venue" class="col-sm-2 control-label">Venue:</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="venue" id="venue">
-                                    <option selected>Select Venue</option>
-                                    <?php foreach ($venues as $venue_item): ?>
-                                    <option value="<?php echo $venue_item['venueID'] ?>"><?php echo $venue_item['name'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
+                        <label for="venue" class="col-sm-2 control-label">Venue:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="venue" id="venue">
+                                <?php
+                                foreach ($venues as $venue_item) {
+                                    if ($venue_item['venueID'] === $venue->venueID) {
+                                        ?>
+                                <option value="<?php echo $venue_item['venueID'] ?>" selected><?php echo $venue_item['name'] ?></option>
+                                <?php } else { ?>
+                                       <option value="<?php echo $venue_item['venueID'] ?>"><?php echo $venue_item['name'] ?></option> 
+                                <?php } } ?>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label for="venuelocation" class="col-sm-2 control-label">Venue Location:</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="venuelocation" id="venuelocation">
-                                    <option>Select Venue First</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="venuelocation" class="col-sm-2 control-label">Venue Location:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="venuelocation" id="venuelocation">
+                                <?php
+                                    foreach ($venuelocations as $location) {
+                                        if($location['locationID'] === $session->locationID) {
+                                ?>
+                                <option value="<?php echo $location['locationID'] ?>" selected><?php echo $location['name'] ?></option>
+                                <?php } elseif ($location['venueID'] === $venue->venueID) { ?>
+                                <option value="<?php echo $location['locationID'] ?>"><?php echo $location['name'] ?></option>
+                                <?php } } ?>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label for="level" class="col-sm-2 control-label">Level:</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="level" id="level">
-                                    <option selected>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="level" class="col-sm-2 control-label">Level:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="level" id="level">
+                                <?php
+                                    for($x = 1; $x < 4; $x++) {
+                                        if ($x == intval($session->level)) {
+                                ?>
+                                    <option selected><?php echo $x ?></option>
+                                <?php } else { ?>
+                                    <option><?php echo $x ?></option>
+                                <?php } } ?>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label for="date" class="col-sm-2 control-label">Date:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" id="date" name="date" placeholder="19-11-2014">
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date" class="col-sm-2 control-label">Date:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="date" name="date" value="<?php echo $date ?>">
                         </div>
-                        <div class="form-group">
-                            <label for="start" class="col-sm-2 control-label">Start Time:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" id="start" name="start" placeholder="13:12:00">
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="start" class="col-sm-2 control-label">Start Time:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="start" name="start" value="<?php echo $start ?>">
                         </div>
-                        <div class="form-group">
-                            <label for="end" class="col-sm-2 control-label">End Time:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" id="end" name="end" placeholder="14:25:00">
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="end" class="col-sm-2 control-label">End Time:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="end" name="end" value="<?php echo $end ?>">
                         </div>
-                        <div class="form-group">
-                            <label for="instructor" class="col-sm-2 control-label">Instructor:</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="instructor" id="instructor">
-                                    <option value="0">Select Instructor</option>
-                                    <?php foreach ($instructors as $instructor): ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="instructor" class="col-sm-2 control-label">Instructor:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="instructor" id="instructor">
+                                <?php foreach ($instructors as $instructor): 
+                                    if($instructor['instructorID'] === $session->instructorID) {
+                                    ?>
+                                    <option value="<?php echo $instructor['instructorID'] ?>" selected><?php echo $instructor['name'] ?></option>
+                                    <?php } else { ?>
                                     <option value="<?php echo $instructor['instructorID'] ?>"><?php echo $instructor['name'] ?></option>
-                                    <?php endforeach ?>
+                                    <?php } endforeach  ?>
+                                    <?php if ($session->instructorID === "0") { ?>
+                                    <option value="0" selected>TBD</option>
+                                    <?php } else { ?>
                                     <option value="0">TBD</option>
-                                </select>
-                            </div>
+                                    <?php } ?>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label for="assistant" class="col-sm-2 control-label">Assistant:</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="assistant" id="assistant">
-                                    <option value="0">Select Assistant</option>
-                                    <?php foreach ($instructors as $instructor): ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="assistant" class="col-sm-2 control-label">Assistant:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="assistant" id="assistant">
+                                <?php foreach ($instructors as $instructor): 
+                                    if($instructor['instructorID'] === $session->assistantID) {
+                                    ?>
+                                    <option value="<?php echo $instructor['instructorID'] ?>" selected><?php echo $instructor['name'] ?></option>
+                                    <?php } else { ?>
                                     <option value="<?php echo $instructor['instructorID'] ?>"><?php echo $instructor['name'] ?></option>
-                                    <?php endforeach ?>
+                                    <?php } endforeach  ?>
+                                    <?php if ($session->assistantID === "0") { ?>
+                                    <option value="0" selected>None</option>
+                                    <?php } else { ?>
                                     <option value="0">None</option>
-                                </select>
-                            </div>
+                                    <?php } ?>
+                            </select>
                         </div>
-                    <input type="hidden" name="venueID" value="<?php echo $session->sessionID; ?>">
+                    </div>
+                    <input type="hidden" name="sessionID" value="<?php echo $session->sessionID; ?>">
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addLocationSubmit">Submit</button>
+                <button type="button" class="btn btn-primary" id="editSessionSubmit">Submit</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="addClientBookingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Booking</h4>
+            </div>
+            <div class="modal-body">
+                <div id="form">
+                    <div class="form-group">
+                        <label for="venue">Enter Client Last Name</label>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="clientSearch" id="clientSearch">
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary" id="clientSearchSubmit">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    $attributes = array('id' => 'addClientBookingForm', 'role' => 'form');
+                    echo form_open('admin/manageBookings', $attributes);
+                    ?>
+                    <div class="form-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Clients</h3>
+                            </div>
+                            <div class="panel-body" id="clients">
+                                Use search box above to find clients.
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="sessionID" value="<?php echo $session->sessionID; ?>">
+                    <input type="hidden" name="action" value="add">
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addClientBookingSubmit">Submit</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

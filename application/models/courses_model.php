@@ -38,7 +38,7 @@ class Courses_Model extends CI_Model {
 
         return $query->row();
     }
-    
+
     public function get_courses($status, $courseID = FALSE) {
         $currentDate = date("Y-m-d");
 
@@ -73,12 +73,28 @@ class Courses_Model extends CI_Model {
         return $query->row();
     }
 
+    public function get_top5courses() {
+        $currentDate = date("Y-m-d");
+
+        $this->db->select('*');
+        $this->db->from('courses');
+        $this->db->join('venues', 'courses.venueID = venues.venueID');
+        $this->db->where('courses.endDate >=', $currentDate);
+        $this->db->order_by("startDate", "asc");
+        $this->db->limit(5);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+    
+    
+
     public function get_bookings($sessionID = FALSE, $userID = FALSE) {
 
         if ($sessionID === FALSE) {
             $this->db->select('*');
             $this->db->from('bookings');
-            $this->db->join('sessions', 'bookings.sessionID = sessions.sessionID');            
+            $this->db->join('sessions', 'bookings.sessionID = sessions.sessionID');
             $query = $this->db->get();
 
             return $query->result_array();
@@ -111,6 +127,12 @@ class Courses_Model extends CI_Model {
         $this->db->insert('sessionplans', $planData);
         return true;
     }
+    
+    public function update_session($data, $sessionID) {        
+        $this->db->where('sessionID', $sessionID);
+        $this->db->update('sessions', $data); 
+        return true;
+    }
 
     public function delete_session($sessionID) {
         $this->db->delete('sessions', array('sessionID' => $sessionID));
@@ -118,4 +140,13 @@ class Courses_Model extends CI_Model {
         $this->db->delete('sessionplanactivitys', array('sessionID' => $sessionID));
     }
 
+    public function set_booking($data) {
+        $this->db->insert('bookings', $data);
+        return true;
+    }
+    
+    public function delete_booking($userID, $sessionID) {
+        $this->db->delete('bookings', array('sessionID' => $sessionID, 'userID' => $userID));
+        return true;
+    }
 }

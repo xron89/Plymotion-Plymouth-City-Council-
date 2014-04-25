@@ -8,6 +8,7 @@ class Courses extends CI_Controller {
         $this->load->model('venues_model');
         $this->load->model('courses_model');
         $this->load->model('instructors_model');
+        $this->load->model('clients_model');
     }
 
     public function index($data, $page) {
@@ -30,11 +31,11 @@ class Courses extends CI_Controller {
     public function venueManagment($error = null) {
         $data['title'] = 'Venue Managment';
         $data['venues'] = $this->venues_model->get_venues();
-        
+
         if ($error != null) {
             $data['errorMessage'] = $error;
         }
-        
+
         $this->index($data, 'venue_managment');
     }
 
@@ -47,18 +48,18 @@ class Courses extends CI_Controller {
         if ($error != null) {
             $data['errorMessage'] = $error;
         }
-        
+
         $this->index($data, 'session_managment');
     }
-    
+
     public function courseManagment($status = "active", $error = null) {
         $data['title'] = 'Course Managment';
         $data['courses'] = $this->courses_model->get_courses($status);
-        
+
         if ($error != null) {
             $data['errorMessage'] = $error;
         }
-        
+
         $this->index($data, 'course_managment');
     }
 
@@ -194,6 +195,35 @@ class Courses extends CI_Controller {
 
         $this->sessionManagment();
     }
+    
+    public function editSession() {
+        $date = strtotime($this->input->post('date'));
+        $start = strtotime($this->input->post('start'));
+        $end = strtotime($this->input->post('end'));
+        if ($date === false && $start === false && $end === false) {
+            $date = date("m-d-Y");
+            $start = date("H:i:s");
+            $end = date("H:i:s");
+        } else {
+            $date = date("Y-m-d", $date);
+            $start = date("H:i:s", $start);
+            $end = date("H:i:s", $end);
+        }
+
+        $sessionData = array(
+            'locationID' => $this->input->post('venuelocation'),
+            'level' => $this->input->post('level'),
+            'date' => $date,
+            'startTime' => $start,
+            'endTime' => $end,
+            'instructorID' => $this->input->post('instructor'),
+            'assistantID' => $this->input->post('assistant')
+        );
+
+        $this->courses_model->update_session($sessionData, $this->input->post('sessionID'));
+
+        $this->sessionProfile($this->input->post('sessionID'));
+    }
 
     public function venueLocations($venueID) {
         $data = $this->venues_model->get_venueLocations($venueID);
@@ -212,7 +242,7 @@ class Courses extends CI_Controller {
 
         if ($selected == null) {
             $error = "Please select one entry or use the bulk delete option.";
-            $this->sessionManagment("active",$error);
+            $this->sessionManagment("active", $error);
         } else {
             $sessionID = $selected[0];
 
@@ -226,6 +256,45 @@ class Courses extends CI_Controller {
         }
     }
 
+    public function clientSearch($name) {
+        $foundClients = $this->clients_model->get_clientsSearch($name);
+
+        if (sizeof($foundClients) > 0) {
+            echo '<table class="table">';
+            echo "<tr>";
+            echo "<th></th>";
+            echo "<th>Name</th>";
+            echo "</tr>";
+            foreach ($foundClients as $client) {
+                echo "<tr>";
+                echo '<td><input type="radio" name="optionsRadio" id="optionsRadio' . $client['userID'] . '" value="' . $client['userID'] . '"></td>';
+                echo "<td>" . $client['firstName'] . " " . $client['lastName'] . "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "No Clients Found";
+        }
+    }
+
+    public function manageBookings() {
+        if ($this->input->post('action') === "add") {
+            $bookingData = array(
+                'userID' => $this->input->post('optionsRadio'),
+                'sessionID' => $this->input->post('sessionID')
+            );
+
+            $this->courses_model->set_booking($bookingData);
+        } else {
+            $selected = $this->input->post('selected');
+            $userID = $selected[0];
+            $sessionID = $this->input->post('sessionID');
+            $this->courses_model->delete_booking($userID, $sessionID);
+        }
+
+        $this->sessionProfile($this->input->post('sessionID'));
+    }
+
     private function venueProfile($venueID, $data) {
         $data['title'] = 'Edit Venue';
         $data['venue'] = $this->venues_model->get_venues($venueID);
@@ -233,24 +302,25 @@ class Courses extends CI_Controller {
 
         $this->index($data, 'venue_profile');
     }
-    
+
     private function sessionProfile($sessionID, $data = null) {
         $data['title'] = 'Edit Session';
         $session = $this->courses_model->get_sessions(null, $sessionID);
         $data['session'] = $session;
         $data['venues'] = $this->venues_model->get_venues();
         $data['venue'] = $this->venues_model->get_venues($session->venueID);
+        $data['venuelocations'] = $this->venues_model->get_venueLocations($session->venueID);
         $data['bookings'] = $this->courses_model->get_bookings($session->sessionID);
         $data['instructors'] = $this->instructors_model->get_instructors();
-        
+
         if ($session->instructorID != "0") {
             $data['instructor'] = $this->instructors_model->get_instructors($session->instructorID);
         }
-        
+
         if ($session->assistantID != "0") {
             $data['assistant'] = $this->instructors_model->get_instructors($session->instructorID);
         }
-        
+
 
         $this->index($data, 'session_profile');
     }

@@ -36,6 +36,7 @@ class Admin extends CI_Controller {
         $data['courses'] = $this->courses_model->get_top5courses();
         $data['clientCount'] = $this->clients_model->count_clients();
         $data['venueCount'] = $this->venues_model->count_venues();
+        $data['postCount'] = $this->news_model->count_posts();
 
         $this->index($data, 'admin_home');
     }

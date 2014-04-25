@@ -61,7 +61,7 @@
             <?php if ($this->session->userdata('logged_in') === TRUE && $this->session->userdata('auth') === "user") { ?>
             <h2>Your Control Panel</h2>
             <h4>Hello <?php echo $this->session->userdata('name'); ?></h4>
-            <a class="btn btn-default" href="#">View Bookings</a><br/><br/>
+            <a class="btn btn-default" href="<?php echo site_url('myBookings')?>">View Bookings</a><br/><br/>
             <a class="btn btn-default" href="<?php echo site_url('myProfile/' . $this->session->userdata('userID')) ?>">Manage Profile</a><br/><br/>
             <a class="btn btn-default" href="logout">Logout</a>
             <?php } else { ?>

@@ -138,6 +138,10 @@ $(document).ready(function() {
             $('#newSessionModal').modal('show');
         })
     });
+    
+    $('#editClient').click(function() {
+        $('#clientsForm').submit();
+    });
 });
 
 

@@ -29,4 +29,8 @@ class News_Model extends CI_Model {
 
         return $query->result_array();
     }
+    
+    public function count_posts() {
+        return $this->db->count_all('news');
+    }
 }

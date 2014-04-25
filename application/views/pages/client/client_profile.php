@@ -2,7 +2,7 @@
     <div id="content" class="container">
         <div class="row">
         <?php } ?>
-        <div class="col-md-10">
+        <div class="col-md-9">
             <div class="header">
                 <?php if ($this->session->userdata('auth') === "user") { ?>
                     <h2>Your Profile</h2>
@@ -11,7 +11,7 @@
                 <?php } ?>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="panel panel-default">
                         <div class="panel-heading">  
                             <div class="row">
@@ -57,11 +57,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <h3 class="panel-title">Additional Information</h3>
                                 </div>
                                 <div class="col-md-2">
@@ -188,6 +188,15 @@
                 </div>
             <?php } ?>
         </div>
+        <?php if ($this->session->userdata('auth') === "user") { ?>
+            <div class="col-md-3">
+                <h2>Your Control Panel</h2>
+                <h4>Hello <?php echo $this->session->userdata('name'); ?></h4>
+                <a class="btn btn-default" href="<?php echo site_url('myBookings') ?>">View Bookings</a><br/><br/>
+                <a class="btn btn-default" href="<?php echo site_url('myProfile/' . $this->session->userdata('userID')) ?>">Manage Profile</a><br/><br/>
+                <a class="btn btn-default" href="<?php echo site_url('logout') ?>">Logout</a>
+            </div>
+        <?php } ?>
         <div class="modal fade" id="editDetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">

@@ -20,13 +20,13 @@
                 <div class="affixNavContent">
                     <ul class="nav bs-sidenav">
                         <li>
-                            <a href="#"><i class="fa fa-users"></i> Clients</a>
+                            <a href="<?php echo site_url('admin/clientManagment') ?>"><i class="fa fa-users"></i> Clients</a>
                         </li>
                         <li>
                             <a href="<?php echo site_url('admin/adminManagment') ?>"><i class="fa fa-user"></i> Admins</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-user"></i> Instructors</a>
+                            <a href="<?php echo site_url('admin/instructorManagment') ?>"><i class="fa fa-user"></i> Instructors</a>
                         </li>
                     </ul>
                 </div>

@@ -17,9 +17,9 @@ class Clients extends CI_Controller {
         $this->load->model('courses_model');
         $this->load->model('venues_model');
         $this->load->model('instructors_model');
-        
+
         $this->load->helper('string');
-        
+
         $this->load->library('encrypt');
         $this->load->library('email', $emailConfig);
     }
@@ -64,13 +64,37 @@ class Clients extends CI_Controller {
             $this->load->view('templates/footer');
         }
     }
+    
 
     public function viewNews() {
         $data['title'] = 'News';
         $data['news'] = $this->news_model->get_newsTop3();
-        
+
         $this->load->view('templates/header', $data);
         $this->load->view('pages/news', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function userBookings() {
+        $data['title'] = 'My Bookings';
+
+        $userID = $this->session->userdata('userID');
+        $bookings = $this->courses_model->get_clientBookings($userID);
+        $courseID = "0";
+        foreach ($bookings as $booking) {
+            $courseID = $booking['courseID'];
+        }
+
+        if ($courseID != "0") {
+            $course = $this->courses_model->get_courses(null, $courseID);
+            $data['course'] = $course;
+            $data['altVenue'] = $this->courses_model->get_altVenue($course->altVenuID);
+        }
+
+        $data['sessions'] = $bookings;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('pages/client/client_bookings', $data);
         $this->load->view('templates/footer');
     }
 
@@ -212,7 +236,7 @@ class Clients extends CI_Controller {
 
         $this->userProfile($userID);
     }
-    
+
     public function addBooking() {
         $bookingData = array(
             'sessionID' => $this->input->post('optionsRadio'),
@@ -220,10 +244,10 @@ class Clients extends CI_Controller {
         );
 
         $this->courses_model->set_booking($bookingData);
-        
+
         $this->userProfile($this->input->post('userID'));
     }
-    
+
     public function newSession() {
         $date = strtotime($this->input->post('date'));
         $start = strtotime($this->input->post('start'));
@@ -251,10 +275,10 @@ class Clients extends CI_Controller {
         $sessionID = $this->courses_model->set_session($sessionData);
 
         $this->addBooking2($sessionID, $this->input->post('userID'));
-        
+
         $this->userProfile($this->input->post('userID'));
     }
-    
+
     private function addBooking2($sessionID, $userID) {
         $bookingData = array(
             'sessionID' => $sessionID,

@@ -72,6 +72,15 @@ class Courses_Model extends CI_Model {
 
         return $query->row();
     }
+    
+    public function get_altVenue($venueID) {
+        $this->db->select('*');
+        $this->db->from('venues');
+        $this->db->where('venueID', $venueID);     
+        $query = $this->db->get();
+
+        return $query->row();
+    }
 
     public function get_top5courses() {
         $currentDate = date("Y-m-d");
@@ -122,6 +131,7 @@ class Courses_Model extends CI_Model {
         $this->db->select('*');
         $this->db->from('bookings');
         $this->db->join('sessions', 'bookings.sessionID = sessions.sessionID');
+        $this->db->join('venuelocations', 'sessions.locationID = venuelocations.locationID');
         $this->db->where('bookings.userID', $userID);
         $query = $this->db->get();
 

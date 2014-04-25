@@ -6,7 +6,7 @@
                     <div class="panel panel-sucess">
                         <i class="fa fa-pencil fa-3x"></i>
                         <small>News Posts</small>
-                        <h2>36,288</h2>
+                        <h2><?php echo $postCount ?></h2>
                     </div>
                 </div>
                 <div class="col-md-4">

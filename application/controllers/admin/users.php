@@ -7,9 +7,13 @@ class Users extends CI_Controller {
 
         $this->load->model('clients_model');
         $this->load->model('admins_model');
+        $this->load->model('instructors_model');
+        $this->load->model('courses_model');
+        $this->load->model('venues_model');
+
         $this->load->library('encrypt');
     }
-    
+
     public function index($data, $page) {
         if ($this->authCheck()) {
             $data['title'] = "Home";
@@ -26,7 +30,7 @@ class Users extends CI_Controller {
             $this->load->view('templates/footer');
         }
     }
-    
+
     public function newClients() {
         $data['title'] = 'New Clients';
         $data['clients'] = $this->clients_model->get_new_clients();
@@ -39,6 +43,34 @@ class Users extends CI_Controller {
         $data['admins'] = $this->admins_model->get_admins();
 
         $this->index($data, 'admin_managment');
+    }
+
+    public function instructorManagment() {
+        $data['title'] = 'Instructor Managment';
+        $data['instructors'] = $this->instructors_model->get_instructors();
+
+        $this->index($data, 'instructor_managment');
+    }
+
+    public function clientManagment() {
+        $data['title'] = 'Client Managment';
+        $data['clients'] = $this->clients_model->get_clients();
+
+        $this->index($data, 'client_managment');
+    }
+
+    public function manageClients() {
+        $action = $this->input->post('action');
+        $selected = $this->input->post('selected');
+
+        if ($selected == null) {
+            $error = "Please select one entry or use the bulk delete option.";
+            $this->clientManagment();
+        } else {
+            $userID = $selected[0];
+
+            $this->userProfile($userID);
+        }
     }
 
     public function newAdmin() {
@@ -71,7 +103,7 @@ class Users extends CI_Controller {
             }
         }
     }
-    
+
     private function dupeCheck($username) {
         $admins = $this->admins_model->get_admins();
 
@@ -83,7 +115,7 @@ class Users extends CI_Controller {
 
         return false;
     }
-    
+
     private function authCheck() {
         if ($this->session->userdata('logged_in')) {
             if ($this->session->userdata('auth') != "admin" || $this->session->userdata('auth') != "instructor") {
@@ -92,5 +124,38 @@ class Users extends CI_Controller {
         }
         return true;
     }
-}
 
+    private function userProfile($userID) {
+        $user = $this->clients_model->get_clients($userID);
+        $data['user'] = $user;
+
+        if ($this->session->userdata('auth') === "user") {
+            $data['title'] = 'Your Profile';
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/client/client_profile', $data);
+            $this->load->view('templates/footer');
+        } else if ($this->session->userdata('auth') === "admin") {
+            $data['title'] = $user->firstName . " " . $user->lastName . "'s Profile";
+            $bookings = $this->courses_model->get_clientBookings($userID);
+            $data['bookings'] = $bookings;
+            $data['locations'] = $this->venues_model->get_locations();
+            $data['venues'] = $this->venues_model->get_venues();
+            $data['instructors'] = $this->instructors_model->get_instructors();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/admin/adminAffix');
+            $this->load->view('pages/client/client_profile', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data['title'] = "Home";
+            $data['authCheck'] = "false";
+            $data['authMessage'] = "You are not authorised to view that page";
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/home', $data);
+            $this->load->view('templates/footer');
+        }
+    }
+
+}
